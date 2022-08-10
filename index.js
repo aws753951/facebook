@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 // show which req has been made, what was result and how long it took.
 const morgan = require("morgan");
+const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
 
 mongoose.connect(process.env.MONGO_URL, () => {
   console.log("Altas has been connected.");
@@ -15,6 +17,9 @@ mongoose.connect(process.env.MONGO_URL, () => {
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
 
 app.get("/", (req, res) => {
   res.send("OK");
