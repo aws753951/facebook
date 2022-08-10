@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const userschema = new mongoose.Schema(
   {
@@ -41,20 +40,25 @@ const userschema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    desc: {
+      type: String,
+      maxLength: 200,
+    },
+    city: {
+      type: String,
+      maxLength: 50,
+    },
+    from: {
+      type: String,
+      maxLength: 50,
+    },
+    relationship: {
+      type: String,
+      enum: ["single", "married", "complex"],
+    },
   },
   //   doc time, need change
   { timestamps: true }
 );
-
-// hash password before save user
-userschema.pre("save", async function (next) {
-  if (this.isModified("password") || this.isNew) {
-    let hashpassword = await bcrypt.hash(this.password, 12);
-    this.password = hashpassword;
-    next();
-  } else {
-    next();
-  }
-});
 
 module.exports = mongoose.model("User", userschema);
