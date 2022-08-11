@@ -1,0 +1,59 @@
+.sharepost {
+  background-color: white;
+  width: 70%;
+  height: 170px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+  .sharepostWrapper {
+    padding: 15px;
+    .sharepostTop {
+      display: flex;
+      align-items: center;
+
+      .sharepostInput {
+        width: calc(100% - 80px);
+        min-height: 50px;
+        border: none;
+        font-size: 20px;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .sharepostHr {
+      margin: 20px;
+    }
+    .sharepostBottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      .sharepostOption {
+        display: flex;
+        align-items: center;
+        margin-right: 15px;
+        cursor: pointer;
+        .sharepostIcon {
+          margin-right: 10px;
+          font-size: 30px;
+        }
+        .sharepostOptionText {
+          font-size: 18px;
+          font-weight: 800;
+        }
+      }
+
+      .sharepostButton {
+        border: none;
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 800;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: rgb(96, 143, 236);
+        color: white;
+      }
+    }
+  }
+}

@@ -11,6 +11,34 @@
   background-color: #fcfcfc;
 }
 
+.ProfileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px #e0e0e0;
+          box-shadow: inset 0 0 5px #e0e0e0;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #afafaf;
+  border-radius: 10px;
+}
+
 .navbarContainer {
   height: 60px;
   width: 100%;
@@ -254,24 +282,6 @@
   margin-bottom: 5px;
 }
 
-/* width */
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 5px #e0e0e0;
-          box-shadow: inset 0 0 5px #e0e0e0;
-  border-radius: 10px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #afafaf;
-  border-radius: 10px;
-}
-
 .centerbarContainer {
   -webkit-box-flex: 6;
       -ms-flex: 6;
@@ -283,98 +293,13 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.centerbarContainer .centerWrapper .sharepost {
-  background-color: white;
-  width: 70%;
-  height: 170px;
-  border-radius: 10px;
-  -webkit-box-shadow: 0px 2px 9px -4px #000000;
-  box-shadow: 0px 2px 9px -4px #000000;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper {
-  padding: 15px;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop .sharepostProfileImg {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  margin-right: 15px;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop .sharepostInput {
-  width: calc(100% - 80px);
-  min-height: 50px;
-  border: none;
-  font-size: 20px;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop .sharepostInput:focus {
-  outline: none;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostHr {
-  margin: 20px;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostOption {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-right: 15px;
-  cursor: pointer;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostOption .sharepostIcon {
-  margin-right: 10px;
-  font-size: 30px;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostOption .sharepostOptionText {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostButton {
-  border: none;
-  padding: 8px 20px;
-  font-size: 16px;
-  font-weight: 800;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #608fec;
-  color: white;
 }
 
 .photoColor {
@@ -387,6 +312,219 @@
 
 .feelingColor {
   color: #ebcd24;
+}
+
+.sharepost {
+  background-color: white;
+  width: 70%;
+  height: 170px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+}
+
+.sharepost .sharepostWrapper {
+  padding: 15px;
+}
+
+.sharepost .sharepostWrapper .sharepostTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sharepost .sharepostWrapper .sharepostTop .sharepostInput {
+  width: calc(100% - 80px);
+  min-height: 50px;
+  border: none;
+  font-size: 20px;
+}
+
+.sharepost .sharepostWrapper .sharepostTop .sharepostInput:focus {
+  outline: none;
+}
+
+.sharepost .sharepostWrapper .sharepostHr {
+  margin: 20px;
+}
+
+.sharepost .sharepostWrapper .sharepostBottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.sharepost .sharepostWrapper .sharepostBottom .sharepostOption {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.sharepost .sharepostWrapper .sharepostBottom .sharepostOption .sharepostIcon {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+.sharepost .sharepostWrapper .sharepostBottom .sharepostOption .sharepostOptionText {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.sharepost .sharepostWrapper .sharepostBottom .sharepostButton {
+  border: none;
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #608fec;
+  color: white;
+}
+
+.post {
+  background-color: white;
+  width: 70%;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+  margin: 25px 0px;
+}
+
+.post .postWrapper {
+  padding: 15px;
+}
+
+.post .postWrapper .postTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.post .postWrapper .postTop .postTopLeft {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.post .postWrapper .postTop .postTopLeft .profileInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.post .postWrapper .postTop .postTopLeft .profileInfo .postUsername {
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.post .postWrapper .postTop .postTopLeft .profileInfo .postDate {
+  font-size: 14px;
+  color: #b3b3b3;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.post .postWrapper .postTop .postTopLeft .profileInfo .postDate .postDateIcon {
+  font-size: 14px;
+}
+
+.post .postWrapper .postTop .postTopRight {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .postWrapper .postTop .postTopRight .postMoreIcon:hover {
+  padding: 6px;
+  background-color: #ebebeb;
+  border-radius: 50%;
+}
+
+.post .postWrapper .postCenter .postText {
+  display: block;
+  margin: 16px 0px;
+}
+
+.post .postWrapper .postCenter .postImg {
+  margin: 10px 0px;
+  cursor: pointer;
+  width: 100%;
+  max-height: 500px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.post .postWrapper .postBottom .postBottomInfos {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.post .postWrapper .postBottom .postBottomInfos .postBottomInfosLeft {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .postWrapper .postBottom .postBottomInfos .postBottomInfosLeft .likeIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.post .postWrapper .postBottom .postBottomInfos .postBottomInfosLeft .likeCount {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.post .postWrapper .postBottom .postBottomInfos .postBottomInfosRight span {
+  margin: 0px 2px;
+  cursor: pointer;
 }
 
 .rightbarContainer {

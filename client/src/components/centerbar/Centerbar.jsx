@@ -1,3 +1,4 @@
+import Post from "../sharepost/Post";
 import Sharepost from "../sharepost/Sharepost";
 
 export default function Centerbar() {
@@ -5,6 +6,10 @@ export default function Centerbar() {
     <div className="centerbarContainer">
       <div className="centerWrapper">
         <Sharepost />
+        <Post />
+        <Post />
+        <Post />
+        <Post />
       </div>
     </div>
   );

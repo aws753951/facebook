@@ -8,7 +8,7 @@ export default function Sharepost() {
     <div className="sharepost">
       <div className="sharepostWrapper">
         <div className="sharepostTop">
-          <img src={profile} alt="" className="sharepostProfileImg" />
+          <img src={profile} alt="" className="ProfileImg" />
           <input placeholder="誰誰誰，你在想甚麼?" className="sharepostInput" />
         </div>
         <hr className="sharepostHr" />
