@@ -4,6 +4,9 @@ import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import picture from "../../assets/example.jpg";
 import like from "../../assets/like.png";
 import love from "../../assets/heart.png";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import ReplyIcon from "@mui/icons-material/Reply";
 
 export default function Post() {
   return (
@@ -40,7 +43,21 @@ export default function Post() {
               <span className="shareCount">17則分享</span>
             </div>
           </div>
-          <div className="postBottomComments"></div>
+          <hr className="postBottomHr" />
+          <div className="postBottomComments">
+            <div className="postBottomComment">
+              <ThumbUpOffAltIcon className="postBottomCommentIcon" />
+              <span className="postBottomCommentAct">讚</span>
+            </div>
+            <div className="postBottomComment">
+              <ChatBubbleOutlineIcon className="postBottomCommentIcon" />
+              <span className="postBottomCommentAct">留言</span>
+            </div>
+            <div className="postBottomComment">
+              <ReplyIcon className="postBottomCommentIcon" />
+              <span className="postBottomCommentAct">分享</span>
+            </div>
+          </div>
           <div className="postBottomDetail"></div>
         </div>
       </div>

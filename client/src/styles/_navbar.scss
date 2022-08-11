@@ -1,4 +1,5 @@
 .navbarContainer {
+  z-index: 1;
   height: 60px;
   width: 100%;
   background-color: white;
@@ -23,15 +24,15 @@
       }
     }
     .searchBar {
-      width: 40%;
+      width: 60%;
       height: 40px;
       display: flex;
       align-items: center;
-      border-radius: 5px;
+      border-radius: 100px;
       background-color: rgb(235, 235, 235);
       .searchInput {
         border: none;
-        width: 90%;
+        width: 80%;
         background-color: rgb(235, 235, 235);
         font-size: 20px;
         // clear border + outline
@@ -41,6 +42,7 @@
       }
       .searchIcon {
         font-size: 30px;
+        margin-left: 10px;
         color: rgb(92, 92, 92);
       }
     }

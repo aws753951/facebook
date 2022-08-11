@@ -87,6 +87,34 @@
           }
         }
       }
+      .postBottomHr {
+        display: block;
+        margin: 5px 0px;
+      }
+      .postBottomComments {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .postBottomComment {
+          padding: 3px 4.8vw;
+          border-radius: 10px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          &:hover {
+            background-color: rgb(236, 234, 234);
+          }
+          .postBottomCommentIcon {
+            font-size: 30px;
+            opacity: 0.6;
+          }
+          .postBottomCommentAct {
+            color: gray;
+            font-weight: 800;
+            margin-left: 3px;
+          }
+        }
+      }
     }
   }
 }

@@ -40,6 +40,7 @@
 }
 
 .navbarContainer {
+  z-index: 1;
   height: 60px;
   width: 100%;
   background-color: white;
@@ -85,7 +86,7 @@
 }
 
 .navbarContainer .navbarLeft .searchBar {
-  width: 40%;
+  width: 60%;
   height: 40px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -93,13 +94,13 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 5px;
+  border-radius: 100px;
   background-color: #ebebeb;
 }
 
 .navbarContainer .navbarLeft .searchBar .searchInput {
   border: none;
-  width: 90%;
+  width: 80%;
   background-color: #ebebeb;
   font-size: 20px;
 }
@@ -110,6 +111,7 @@
 
 .navbarContainer .navbarLeft .searchBar .searchIcon {
   font-size: 30px;
+  margin-left: 10px;
   color: #5c5c5c;
 }
 
@@ -216,15 +218,19 @@
       -ms-flex: 2;
           flex: 2;
   height: calc(100vh - 60px);
-  overflow: hidden;
-}
-
-.leftbarContainer:hover {
-  overflow-y: scroll;
 }
 
 .leftbarContainer .leftbarWrapper {
+  width: 20%;
+  top: 60px;
+  bottom: 0;
+  position: fixed;
+  overflow: hidden;
   padding: 10px;
+}
+
+.leftbarContainer .leftbarWrapper:hover {
+  overflow-y: scroll;
 }
 
 .leftbarContainer .leftbarWrapper .leftbarList {
@@ -527,9 +533,191 @@
   cursor: pointer;
 }
 
+.post .postWrapper .postBottom .postBottomHr {
+  display: block;
+  margin: 5px 0px;
+}
+
+.post .postWrapper .postBottom .postBottomComments {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.post .postWrapper .postBottom .postBottomComments .postBottomComment {
+  padding: 3px 4.8vw;
+  border-radius: 10px;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.post .postWrapper .postBottom .postBottomComments .postBottomComment:hover {
+  background-color: #eceaea;
+}
+
+.post .postWrapper .postBottom .postBottomComments .postBottomComment .postBottomCommentIcon {
+  font-size: 30px;
+  opacity: 0.6;
+}
+
+.post .postWrapper .postBottom .postBottomComments .postBottomComment .postBottomCommentAct {
+  color: gray;
+  font-weight: 800;
+  margin-left: 3px;
+}
+
 .rightbarContainer {
   -webkit-box-flex: 2;
       -ms-flex: 2;
           flex: 2;
+  height: calc(100vh - 60px);
+}
+
+.rightbarContainer .rightbarWrapper {
+  width: 20%;
+  top: 60px;
+  bottom: 0;
+  position: fixed;
+  overflow-x: hidden;
+}
+
+.rightbarContainer .rightbarWrapper:hover {
+  overflow-y: scroll;
+}
+
+.rightbarContainer .rightbarWrapper .birthdayContainer .rightbarbirthdayTitle {
+  display: block;
+  padding: 15px 0px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #999999;
+}
+
+.rightbarContainer .rightbarWrapper .birthdayContainer .rightbarbirthdayItem {
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px 0px;
+}
+
+.rightbarContainer .rightbarWrapper .birthdayContainer .rightbarbirthdayItem:hover {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+}
+
+.rightbarContainer .rightbarWrapper .birthdayContainer .rightbarbirthdayItem .rightbarIcon {
+  width: 32px;
+  height: 32px;
+  color: #5c5c5c;
+}
+
+.rightbarContainer .rightbarWrapper .birthdayContainer .rightbarbirthdayItem .rightbarListItemText {
+  margin-left: 10px;
+}
+
+.rightbarContainer .rightbarWrapper .birthdayContainer .rightbarHr {
+  display: block;
+  margin: 5px 0px;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rightbarContact {
+  margin: 15px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rightbarContact .rightbarContactPerson {
+  font-size: 20px;
+  font-weight: 800;
+  color: #999999;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rightbarContact .rightbarContactIcon {
+  width: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  color: #5c5c5c;
+  cursor: pointer;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rightbarContact .rightbarContactIcon .rightbarSmallIcon {
+  width: 24px;
+  height: 24px;
+  padding: 6px;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rightbarContact .rightbarContactIcon .rightbarSmallIcon:hover {
+  background-color: #ebebeb;
+  border-radius: 50%;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem:hover {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem .rightbarFriendsContainer {
+  position: relative;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem .rightbarFriendsContainer .ProfileImg {
+  margin-right: 0 !important;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem .rightbarFriendsContainer .onlineLight {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2a972a;
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  border: 2px solid white;
+}
+
+.rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem .rightbarFriendName {
+  margin-left: 5px;
 }
 /*# sourceMappingURL=style.css.map */

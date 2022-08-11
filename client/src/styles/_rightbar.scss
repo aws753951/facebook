@@ -1,3 +1,110 @@
 .rightbarContainer {
   flex: 2;
+  height: calc(100vh - 60px);
+
+  .rightbarWrapper {
+    width: 20%;
+    top: 60px;
+    bottom: 0;
+    position: fixed;
+    overflow-x: hidden;
+    &:hover {
+      overflow-y: scroll;
+    }
+
+    .birthdayContainer {
+      .rightbarbirthdayTitle {
+        display: block;
+        padding: 15px 0px;
+        font-size: 20px;
+        font-weight: 800;
+        color: rgb(153, 153, 153);
+      }
+      .rightbarbirthdayItem {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 10px 0px;
+        &:hover {
+          background-color: rgb(243, 243, 243);
+          border-radius: 10px;
+        }
+        .rightbarIcon {
+          width: 32px;
+          height: 32px;
+          color: rgb(92, 92, 92);
+        }
+        .rightbarListItemText {
+          margin-left: 10px;
+        }
+      }
+      .rightbarHr {
+        display: block;
+        margin: 5px 0px;
+      }
+    }
+    .rightbarFriends {
+      .rightbarContact {
+        margin: 15px 0px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .rightbarContactPerson {
+          font-size: 20px;
+          font-weight: 800;
+          color: rgb(153, 153, 153);
+        }
+        .rightbarContactIcon {
+          width: 200px;
+          display: flex;
+          justify-content: space-evenly;
+          color: rgb(92, 92, 92);
+          cursor: pointer;
+          .rightbarSmallIcon {
+            width: 24px;
+            height: 24px;
+            padding: 6px;
+            &:hover {
+              background-color: rgb(235, 235, 235);
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+      .rigthbarFriendsList {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        .rigthbarFriendsListItem {
+          display: flex;
+          align-items: center;
+          padding: 5px;
+          cursor: pointer;
+          &:hover {
+            background-color: rgb(243, 243, 243);
+            border-radius: 10px;
+          }
+          .rightbarFriendsContainer {
+            position: relative;
+            .ProfileImg {
+              margin-right: 0 !important;
+            }
+            .onlineLight {
+              width: 8px;
+              height: 8px;
+              border-radius: 50%;
+              background-color: rgb(42, 151, 42);
+              position: absolute;
+              bottom: 2px;
+              right: 2px;
+              border: 2px solid white;
+            }
+          }
+          .rightbarFriendName {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
 }
