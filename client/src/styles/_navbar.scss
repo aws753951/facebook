@@ -1,0 +1,110 @@
+.navbarContainer {
+  height: 60px;
+  width: 100%;
+  // background-color: rgb(65, 102, 180);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+  .navbarLeft {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    .navbarIconItem0 {
+      margin: 5px;
+      display: flex;
+      align-items: center;
+      .facebookIcon {
+        font-size: 50px;
+        color: rgb(45, 146, 241);
+        cursor: pointer;
+      }
+    }
+    .searchBar {
+      width: 40%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      border-radius: 5px;
+      background-color: rgb(235, 235, 235);
+      .searchInput {
+        border: none;
+        width: 90%;
+        background-color: rgb(235, 235, 235);
+        font-size: 20px;
+        // clear border + outline
+        &:focus {
+          outline: none;
+        }
+      }
+      .searchIcon {
+        font-size: 30px;
+      }
+    }
+  }
+  .navbarCenter {
+    flex: 1;
+    .navbarIcons {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .navbarIconItem {
+        padding: 10px 40px;
+        border-radius: 10px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(236, 234, 234);
+        }
+        .navbarImg {
+          font-size: 30px;
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+  .navbarRight {
+    flex: 1;
+    // margin: 10px;
+    .navbarIcons2 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-right: 30px;
+      .navbarIconItem2 {
+        cursor: pointer;
+        position: relative;
+
+        .navbarIconBadge {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background-color: red;
+          border-radius: 50%;
+          color: white;
+          top: 2px;
+          right: -5px;
+          // *************
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 10px;
+        }
+        .navbarImg {
+          background-color: rgb(235, 235, 235);
+          padding: 8px;
+          margin: 5px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+          cursor: pointer;
+          &:hover {
+            background-color: rgb(197, 194, 194);
+          }
+        }
+      }
+    }
+  }
+}

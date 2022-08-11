@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.navbarContainer {
+  height: 60px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  -webkit-box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+}
+
+.navbarContainer .navbarLeft {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbarContainer .navbarLeft .navbarIconItem0 {
+  margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.navbarContainer .navbarLeft .navbarIconItem0 .facebookIcon {
+  font-size: 50px;
+  color: #2d92f1;
+  cursor: pointer;
+}
+
+.navbarContainer .navbarLeft .searchBar {
+  width: 40%;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+  background-color: #ebebeb;
+}
+
+.navbarContainer .navbarLeft .searchBar .searchInput {
+  border: none;
+  width: 90%;
+  background-color: #ebebeb;
+  font-size: 20px;
+}
+
+.navbarContainer .navbarLeft .searchBar .searchInput:focus {
+  outline: none;
+}
+
+.navbarContainer .navbarLeft .searchBar .searchIcon {
+  font-size: 30px;
+}
+
+.navbarContainer .navbarCenter {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.navbarContainer .navbarCenter .navbarIcons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.navbarContainer .navbarCenter .navbarIcons .navbarIconItem {
+  padding: 10px 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.navbarContainer .navbarCenter .navbarIcons .navbarIconItem:hover {
+  background-color: #eceaea;
+}
+
+.navbarContainer .navbarCenter .navbarIcons .navbarIconItem .navbarImg {
+  font-size: 30px;
+  opacity: 0.6;
+}
+
+.navbarContainer .navbarRight {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 30px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .navbarIconItem2 {
+  cursor: pointer;
+  position: relative;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .navbarIconItem2 .navbarIconBadge {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  top: 2px;
+  right: -5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 10px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .navbarIconItem2 .navbarImg {
+  background-color: #ebebeb;
+  padding: 8px;
+  margin: 5px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .navbarIconItem2 .navbarImg:hover {
+  background-color: #c5c2c2;
+}
+/*# sourceMappingURL=style.css.map */
