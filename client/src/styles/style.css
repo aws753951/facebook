@@ -3,9 +3,17 @@
   font-family: "Roboto", sans-serif;
 }
 
+.homeContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
 .navbarContainer {
   height: 60px;
   width: 100%;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -73,6 +81,7 @@
 
 .navbarContainer .navbarLeft .searchBar .searchIcon {
   font-size: 30px;
+  color: #5c5c5c;
 }
 
 .navbarContainer .navbarCenter {
@@ -96,6 +105,8 @@
   padding: 10px 40px;
   border-radius: 10px;
   cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .navbarContainer .navbarCenter .navbarIcons .navbarIconItem:hover {
@@ -162,9 +173,112 @@
   -o-object-fit: cover;
      object-fit: cover;
   cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .navbarContainer .navbarRight .navbarIcons2 .navbarIconItem2 .navbarImg:hover {
   background-color: #c5c2c2;
+}
+
+.leftbarContainer {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+.leftbarContainer:hover {
+  overflow-y: scroll;
+}
+
+.leftbarContainer .leftbarWrapper {
+  padding: 10px;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarList .leftbarListItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 10px;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarList .leftbarListItem:hover {
+  background-color: #f3f3f3;
+  border-radius: 10px;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarList .leftbarListItem .leftbarListItemText {
+  margin-left: 10px;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarList .leftbarListItem .more {
+  background-color: #ebebeb;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarList .leftbarListItem .leftbarIcon {
+  width: 32px;
+  height: 32px;
+  color: #5c5c5c;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarHr {
+  display: block;
+  margin: 5px 0px;
+}
+
+.leftbarContainer .leftbarWrapper .leftbarShortcutTitle {
+  display: block;
+  padding: 5px 0px;
+  margin-bottom: 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px #e0e0e0;
+          box-shadow: inset 0 0 5px #e0e0e0;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #afafaf;
+  border-radius: 10px;
+}
+
+.centerbarContainer {
+  -webkit-box-flex: 6;
+      -ms-flex: 6;
+          flex: 6;
+}
+
+.rightbarContainer {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
 }
 /*# sourceMappingURL=style.css.map */

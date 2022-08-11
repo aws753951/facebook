@@ -1,4 +1,4 @@
-import FacebookIcon from "@mui/icons-material/Facebook";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
 import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
@@ -15,7 +15,7 @@ export default function Nav() {
     <div className="navbarContainer">
       <div className="navbarLeft">
         <div className="navbarIconItem0">
-          <FacebookIcon className="facebookIcon" />
+          <FacebookOutlinedIcon className="facebookIcon" />
         </div>
         <div className="searchBar">
           <SearchIcon className="searchIcon" />

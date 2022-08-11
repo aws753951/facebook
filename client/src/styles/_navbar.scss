@@ -1,7 +1,7 @@
 .navbarContainer {
   height: 60px;
   width: 100%;
-  // background-color: rgb(65, 102, 180);
+  background-color: white;
   display: flex;
   align-items: center;
   position: sticky;
@@ -41,6 +41,7 @@
       }
       .searchIcon {
         font-size: 30px;
+        color: rgb(92, 92, 92);
       }
     }
   }
@@ -54,6 +55,7 @@
         padding: 10px 40px;
         border-radius: 10px;
         cursor: pointer;
+        transition: all 0.3s ease;
         &:hover {
           background-color: rgb(236, 234, 234);
         }
@@ -85,7 +87,6 @@
           color: white;
           top: 2px;
           right: -5px;
-          // *************
           display: flex;
           justify-content: center;
           align-items: center;
@@ -100,6 +101,7 @@
           border-radius: 50%;
           object-fit: cover;
           cursor: pointer;
+          transition: all 0.3s ease;
           &:hover {
             background-color: rgb(197, 194, 194);
           }

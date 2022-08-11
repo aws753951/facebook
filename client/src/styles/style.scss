@@ -3,4 +3,12 @@
   font-family: "Roboto", sans-serif;
 }
 
+.homeContainer {
+  display: flex;
+  width: 100%;
+}
+
 @import "./navbar";
+@import "./leftbar";
+@import "./centerbar";
+@import "./rightbar";
