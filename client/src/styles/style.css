@@ -8,6 +8,7 @@
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+  background-color: #fcfcfc;
 }
 
 .navbarContainer {
@@ -85,9 +86,9 @@
 }
 
 .navbarContainer .navbarCenter {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
 }
 
 .navbarContainer .navbarCenter .navbarIcons {
@@ -97,12 +98,13 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .navbarContainer .navbarCenter .navbarIcons .navbarIconItem {
-  padding: 10px 40px;
+  padding: 10px 70px;
   border-radius: 10px;
   cursor: pointer;
   -webkit-transition: all 0.3s ease;
@@ -274,6 +276,117 @@
   -webkit-box-flex: 6;
       -ms-flex: 6;
           flex: 6;
+}
+
+.centerbarContainer .centerWrapper {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.centerbarContainer .centerWrapper .sharepost {
+  background-color: white;
+  width: 70%;
+  height: 170px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper {
+  padding: 15px;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop .sharepostProfileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 15px;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop .sharepostInput {
+  width: calc(100% - 80px);
+  min-height: 50px;
+  border: none;
+  font-size: 20px;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostTop .sharepostInput:focus {
+  outline: none;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostHr {
+  margin: 20px;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostOption {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostOption .sharepostIcon {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostOption .sharepostOptionText {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.centerbarContainer .centerWrapper .sharepost .sharepostWrapper .sharepostBottom .sharepostButton {
+  border: none;
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #608fec;
+  color: white;
+}
+
+.photoColor {
+  color: #fc2424;
+}
+
+.friendColor {
+  color: #424ef5;
+}
+
+.feelingColor {
+  color: #ebcd24;
 }
 
 .rightbarContainer {

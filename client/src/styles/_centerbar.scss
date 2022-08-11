@@ -1,3 +1,83 @@
 .centerbarContainer {
   flex: 6;
+  .centerWrapper {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    .sharepost {
+      background-color: white;
+      width: 70%;
+      height: 170px;
+      border-radius: 10px;
+      -webkit-box-shadow: 0px 2px 9px -4px #000000;
+      box-shadow: 0px 2px 9px -4px #000000;
+      .sharepostWrapper {
+        padding: 15px;
+        .sharepostTop {
+          display: flex;
+          align-items: center;
+          .sharepostProfileImg {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+          }
+          .sharepostInput {
+            width: calc(100% - 80px);
+            min-height: 50px;
+            border: none;
+            font-size: 20px;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+        .sharepostHr {
+          margin: 20px;
+        }
+        .sharepostBottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+
+          .sharepostOption {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            cursor: pointer;
+            .sharepostIcon {
+              margin-right: 10px;
+              font-size: 30px;
+            }
+            .sharepostOptionText {
+              font-size: 18px;
+              font-weight: 800;
+            }
+          }
+
+          .sharepostButton {
+            border: none;
+            padding: 8px 20px;
+            font-size: 16px;
+            font-weight: 800;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgb(96, 143, 236);
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+.photoColor {
+  color: rgb(252, 36, 36);
+}
+.friendColor {
+  color: rgb(66, 78, 245);
+}
+.feelingColor {
+  color: rgb(235, 205, 36);
 }
