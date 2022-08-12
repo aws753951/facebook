@@ -40,7 +40,7 @@
 }
 
 .navbarContainer {
-  z-index: 1;
+  z-index: 3;
   height: 60px;
   width: 100%;
   background-color: white;
@@ -218,19 +218,19 @@
       -ms-flex: 2;
           flex: 2;
   height: calc(100vh - 60px);
+  width: 100%;
+  overflow: hidden;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 60px;
+}
+
+.leftbarContainer:hover {
+  overflow-y: scroll;
 }
 
 .leftbarContainer .leftbarWrapper {
-  width: 20%;
-  top: 60px;
-  bottom: 0;
-  position: fixed;
-  overflow: hidden;
   padding: 10px;
-}
-
-.leftbarContainer .leftbarWrapper:hover {
-  overflow-y: scroll;
 }
 
 .leftbarContainer .leftbarWrapper .leftbarList {
@@ -292,6 +292,12 @@
   -webkit-box-flex: 6;
       -ms-flex: 6;
           flex: 6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .centerbarContainer .centerWrapper {
@@ -306,6 +312,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 70%;
 }
 
 .photoColor {
@@ -322,7 +329,7 @@
 
 .sharepost {
   background-color: white;
-  width: 70%;
+  width: 100%;
   height: 170px;
   border-radius: 10px;
   -webkit-box-shadow: 0px 2px 9px -4px #000000;
@@ -402,7 +409,7 @@
 
 .post {
   background-color: white;
-  width: 70%;
+  width: 100%;
   border-radius: 10px;
   -webkit-box-shadow: 0px 2px 9px -4px #000000;
   box-shadow: 0px 2px 9px -4px #000000;
@@ -581,17 +588,11 @@
       -ms-flex: 2;
           flex: 2;
   height: calc(100vh - 60px);
-}
-
-.rightbarContainer .rightbarWrapper {
-  width: 20%;
+  width: 100%;
+  overflow: hidden;
+  position: -webkit-sticky;
+  position: sticky;
   top: 60px;
-  bottom: 0;
-  position: fixed;
-  overflow-x: hidden;
-}
-
-.rightbarContainer .rightbarWrapper:hover {
   overflow-y: scroll;
 }
 
@@ -719,5 +720,378 @@
 
 .rightbarContainer .rightbarWrapper .rightbarFriends .rigthbarFriendsList .rigthbarFriendsListItem .rightbarFriendName {
   margin-left: 5px;
+}
+
+.profile .profileWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #eeeeee;
+}
+
+.profile .profileWrapper .profileBottom {
+  width: 1300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.profile .profileWrapper .profileBottom .profileBottomLeft {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.profile .profileWrapper .profileBottom .profileBottomRight {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 20px;
+}
+
+.personcover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100vw;
+}
+
+.personcover .personWrapper {
+  width: 100%;
+  height: calc(85vh - 60px);
+  background: -webkit-gradient(linear, left top, left bottom, from(#dadada), to(#ffffff));
+  background: linear-gradient(#dadada, #ffffff);
+  border-bottom: 0.3px solid rgba(221, 221, 221, 0.089);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.personcover .personWrapper .profileTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  top: -3px;
+}
+
+.personcover .personWrapper .profileTop .profileCoverImg {
+  height: calc(55vh);
+  width: 1400px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle {
+  width: 1300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: white;
+  position: relative;
+  top: -50px;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopLeft {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopCenter {
+  -webkit-box-flex: 4;
+      -ms-flex: 4;
+          flex: 4;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopCenter .profileUserInfos {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopCenter .profileUserInfos .profileUsername {
+  font-size: 32px;
+  padding: 5px;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopCenter .profileUserInfos .profileFriendsCount {
+  font-size: 20px;
+  padding: 5px;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopCenter .profileUserInfos .profileUserSmallImgs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopCenter .profileUserInfos .profileUserSmallImgs .profileUserSmallImg {
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopRight {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleTop .profileMiddleTopRight .editProfile {
+  font-size: 20px;
+  font-weight: 800;
+  padding: 10px;
+  text-align: center;
+  background-color: #e0e0e0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleHr {
+  margin-top: 23px;
+  opacity: 0.3;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleBottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleBottom .profileMiddleBottomLeft {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleBottom .profileMiddleBottomLeft .profileMiddleBottomText {
+  margin: 2px;
+  padding: 17px;
+  font-weight: 800;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleBottom .profileMiddleBottomLeft .profileMiddleBottomText:hover {
+  background-color: #e0e0e0;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleBottom .profileMiddleBottomRight {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.personcover .personWrapper .profileTop .profileMiddle .profileMiddleBottom .profileMiddleBottomRight .moreHorizIcon {
+  padding: 8px 16px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profileUserImg {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 5px solid white;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.profileUserSmallImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.personinfo {
+  width: 100%;
+}
+
+.personinfo .personinfoWrapper {
+  margin: 20px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.personinfo .personinfoWrapper .personinfoProfile {
+  background-color: white;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+  padding: 15px;
+}
+
+.personinfo .personinfoWrapper .personinfoProfile h4 {
+  font-size: 24px;
+  margin: 5px 0px;
+}
+
+.personinfo .personinfoWrapper .personinfoProfile .addPersoninfo {
+  margin: 8px 0px;
+  padding: 8px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 800;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends {
+  margin: 20px 0px;
+  background-color: white;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+  padding: 15px;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsFunc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsFunc h4 {
+  font-size: 24px;
+  margin: 5px 0px;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsFunc .more {
+  color: #4958da;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsFunc .more:hover {
+  background-color: #dddddd;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsPictures {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsPictures .FriendsContainer {
+  padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  cursor: pointer;
+}
+
+.personinfo .personinfoWrapper .personinfoFriends .personinfoFriendsPictures .FriendsContainer .friendImg {
+  width: 150px;
+  height: 150px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 5px;
 }
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,24 @@
+.profile {
+  .profileWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(238, 238, 238);
+    .profileTop {
+    }
+    .profileBottom {
+      width: 1300px;
+      display: flex;
+      .profileBottomLeft {
+        flex: 1;
+      }
+      .profileBottomRight {
+        flex: 1;
+        padding: 20px;
+      }
+    }
+  }
+}
+
+@import "./personcover";
+@import "./personinfo";

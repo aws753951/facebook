@@ -2,7 +2,7 @@ import CakeIcon from "@mui/icons-material/Cake";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import profile from "../../assets/profile.jpg";
+import { Users } from "../../dummy";
 
 export default function rightbar() {
   return (
@@ -28,160 +28,19 @@ export default function rightbar() {
             </div>
           </div>
           <ul className="rigthbarFriendsList">
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
-            <li className="rigthbarFriendsListItem">
-              <div className="rightbarFriendsContainer">
-                <img src={profile} alt="" className="ProfileImg" />
-                <span className="onlineLight"></span>
-              </div>
-              <span className="rightbarFriendName">朱鴻埕</span>
-            </li>
+            {Users.map((u) => (
+              <li key={u.id} className="rigthbarFriendsListItem">
+                <div className="rightbarFriendsContainer">
+                  <img
+                    src={require(`../../assets/${u.profilePicture}`)}
+                    alt=""
+                    className="ProfileImg"
+                  />
+                  <span className="onlineLight"></span>
+                </div>
+                <span className="rightbarFriendName">{u.username}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

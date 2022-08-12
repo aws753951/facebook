@@ -1,17 +1,15 @@
 .rightbarContainer {
   flex: 2;
+  // ********************************
   height: calc(100vh - 60px);
+  width: 100%;
+  overflow: hidden;
+  position: sticky;
+  top: 60px;
+  overflow-y: scroll;
 
   .rightbarWrapper {
-    width: 20%;
-    top: 60px;
-    bottom: 0;
-    position: fixed;
-    overflow-x: hidden;
-    &:hover {
-      overflow-y: scroll;
-    }
-
+    // ***********************
     .birthdayContainer {
       .rightbarbirthdayTitle {
         display: block;

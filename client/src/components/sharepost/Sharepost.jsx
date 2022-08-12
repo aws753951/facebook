@@ -2,13 +2,23 @@ import profile from "../../assets/profile.jpg";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
+import { useNavigate } from "react-router-dom";
 
 export default function Sharepost() {
+  const navigate = useNavigate();
+  const navigateToProfile = () => {
+    navigate("/profile");
+  };
   return (
     <div className="sharepost">
       <div className="sharepostWrapper">
         <div className="sharepostTop">
-          <img src={profile} alt="" className="ProfileImg" />
+          <img
+            src={profile}
+            alt=""
+            className="ProfileImg"
+            onClick={navigateToProfile}
+          />
           <input placeholder="誰誰誰，你在想甚麼?" className="sharepostInput" />
         </div>
         <hr className="sharepostHr" />

@@ -1,0 +1,139 @@
+.personcover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  .personWrapper {
+    width: 100%;
+    height: calc(85vh - 60px);
+    background: linear-gradient(#dadada, #ffffff);
+    border-bottom: 0.3px solid rgba(221, 221, 221, 0.089);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .profileTop {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      top: -3px;
+      .profileCoverImg {
+        height: calc(55vh);
+        width: 1400px;
+        object-fit: cover;
+        border-radius: 10px;
+        cursor: pointer;
+        z-index: 1;
+      }
+      .profileMiddle {
+        width: 1300px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        position: relative;
+        top: -50px;
+        .profileMiddleTop {
+          display: flex;
+          justify-content: space-between;
+
+          .profileMiddleTopLeft {
+            flex: 1;
+            display: flex;
+          }
+          .profileMiddleTopCenter {
+            flex: 4;
+            .profileUserInfos {
+              height: 100%;
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              .profileUsername {
+                font-size: 32px;
+                padding: 5px;
+              }
+              .profileFriendsCount {
+                font-size: 20px;
+                padding: 5px;
+              }
+              .profileUserSmallImgs {
+                display: flex;
+                padding: 5px;
+
+                .profileUserSmallImg {
+                  border: 1px solid white;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+          .profileMiddleTopRight {
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            .editProfile {
+              font-size: 20px;
+              font-weight: 800;
+              padding: 10px;
+              text-align: center;
+              background-color: rgb(224, 224, 224);
+              display: flex;
+              align-items: center;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+        .profileMiddleHr {
+          margin-top: 23px;
+          opacity: 0.3;
+        }
+        .profileMiddleBottom {
+          display: flex;
+          justify-content: space-between;
+          .profileMiddleBottomLeft {
+            display: flex;
+            .profileMiddleBottomText {
+              margin: 2px;
+              padding: 17px;
+              font-weight: 800;
+              border-radius: 10px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              &:hover {
+                background-color: rgb(224, 224, 224);
+              }
+            }
+          }
+          .profileMiddleBottomRight {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .moreHorizIcon {
+              padding: 8px 16px;
+              background-color: rgb(224, 224, 224);
+              border-radius: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.profileUserImg {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  cursor: pointer;
+  z-index: 2;
+}
+.profileUserSmallImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
