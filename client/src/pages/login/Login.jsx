@@ -39,11 +39,15 @@ export default function Login() {
         <span className="footerIntro">
           請參考我的
           <span>
-            <a href="https://marczhu.netlify.app/">個人網站</a>
+            <a rel="noreferrer" href="https://marczhu.netlify.app/">
+              個人網站
+            </a>
           </span>
           ,
           <span>
-            <a href="https://github.com/aws753951/facebook">Github</a>
+            <a rel="noreferrer" href="https://github.com/aws753951/facebook">
+              Github
+            </a>
           </span>
         </span>
       </div>

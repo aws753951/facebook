@@ -95,9 +95,9 @@ router.get("/:_id", async (req, res) => {
   }
 });
 // get all personal and followings' articles
-router.get("/articals/all", async (req, res) => {
+router.get("/articals/all/:userID", async (req, res) => {
   try {
-    const currentUser = await User.findById(req.body.userID);
+    const currentUser = await User.findById(req.params.userID);
     const userPosts = await Post.find({ userID: currentUser._id });
     // *** solve iterable promises
     const friendsPosts = await Promise.all(
@@ -108,7 +108,18 @@ router.get("/articals/all", async (req, res) => {
       })
     );
     // **concat solve element in array once, ... solve twice
-    console.log(userPosts.concat(...friendsPosts));
+    res.status(200).json(userPosts.concat(...friendsPosts));
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// get all personal's articles
+router.get("/articals/personal/:username", async (req, res) => {
+  try {
+    const foundUser = await User.findOne({ username: req.params.username });
+    const userPosts = await Post.find({ userID: foundUser._id });
+    res.status(200).json(userPosts);
   } catch (err) {
     res.status(500).json(err);
   }

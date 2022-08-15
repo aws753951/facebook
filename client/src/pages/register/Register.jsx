@@ -38,13 +38,21 @@ export default function Register() {
         <span className="footerIntro">
           請參考我的
           <span>
-            <a target="_blank" href="https://marczhu.netlify.app/">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://marczhu.netlify.app/"
+            >
               個人網站
             </a>
           </span>
           ,
           <span>
-            <a target="_blank" href="https://github.com/aws753951/facebook">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://github.com/aws753951/facebook"
+            >
               Github
             </a>
           </span>

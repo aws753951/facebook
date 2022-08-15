@@ -1,6 +1,6 @@
 import { Users } from "../../dummy";
 
-export default function Personinfo() {
+export default function Personinfo({ user }) {
   return (
     <div className="personinfo">
       <div className="personinfoWrapper">
@@ -13,7 +13,9 @@ export default function Personinfo() {
             <h4>朋友</h4>
             <span className="more">查看所有朋友</span>
           </div>
-          <span className="personinfoFriendsCount">807位朋友</span>
+          <span className="personinfoFriendsCount">
+            {user.followings && user.followings.length}位朋友
+          </span>
           <div className="personinfoFriendsPictures">
             {Users.map((u) => (
               <div className="FriendsContainer">

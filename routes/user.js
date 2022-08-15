@@ -37,10 +37,14 @@ router.delete("/:_id", async (req, res) => {
   }
 });
 
-// find user
-router.get("/:_id", async (req, res) => {
+// find user with condition of userID or username
+router.get("/", async (req, res) => {
+  const userID = req.query.userID;
+  const username = req.query.username;
   try {
-    const foundUser = await User.findById(req.params._id);
+    const foundUser = userID
+      ? await User.findById(userID)
+      : await User.findOne({ username });
     // exclude certain properties
     const { password, updatedAt, ...other } = foundUser._doc;
     res.status(200).json(other);

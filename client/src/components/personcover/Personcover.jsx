@@ -1,7 +1,7 @@
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-export default function Personcover() {
+export default function Personcover({ user }) {
   return (
     <div className="personcover">
       <div className="personWrapper">
@@ -22,8 +22,11 @@ export default function Personcover() {
               </div>
               <div className="profileMiddleTopCenter">
                 <div className="profileUserInfos">
-                  <h4 className="profileUsername">朱鴻埕</h4>
-                  <span className="profileFriendsCount">807朋友</span>
+                  <h4 className="profileUsername">{user.username}</h4>
+                  <span className="profileFriendsCount">
+                    {user.followings && user.followings.length}
+                    位朋友
+                  </span>
                   <div className="profileUserSmallImgs">
                     <img
                       src={require("../../assets/person/2.jpeg")}
