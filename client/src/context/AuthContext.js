@@ -15,6 +15,7 @@ const INITIAL_STATE = {
     username: "hannah",
     __v: 0,
     _id: "62fb0a6787ddeaaa44b47196",
+    img: null,
   },
   isFetching: false,
   error: false,
