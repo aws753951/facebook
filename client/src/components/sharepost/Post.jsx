@@ -8,6 +8,7 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
+import { Link } from "react-router-dom";
 
 export default function Post({ post }) {
   const [currentUser, setCurrentUser] = useState({});
@@ -27,21 +28,29 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              src={
-                currentUser.profile
-                  ? require(currentUser.profile)
-                  : require("../../assets/noAvatar.png")
-              }
-              alt=""
-              className="ProfileImg"
-            />
+            <Link to={`/profile/${currentUser.username}`}>
+              <img
+                src={
+                  currentUser.profile
+                    ? require(currentUser.profile)
+                    : require("../../assets/noAvatar.png")
+                }
+                alt=""
+                className="ProfileImg"
+              />
+            </Link>
+
             <div className="profileInfo">
-              <span className="postUsername">
-                {currentUser && currentUser.username}
-              </span>
+              <Link
+                to={`/profile/${currentUser.username}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <span className="postUsername">
+                  {currentUser && currentUser.username}
+                </span>
+              </Link>
               <span className="postDate">
-                <p>{format(post.createdAt, "zh_CN")}．</p>
+                <p>{format(post.createdAt)}．</p>
                 <PublicOutlinedIcon className="postDateIcon" />
               </span>
             </div>

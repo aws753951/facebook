@@ -1,13 +1,17 @@
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
-export default function Personcover({ user }) {
+export default function Personcover({ user2 }) {
   return (
     <div className="personcover">
       <div className="personWrapper">
         <div className="profileTop">
           <img
-            src={require("../../assets/post/8.jpeg")}
+            src={
+              user2.profilePicture
+                ? require(user2.profilePicture)
+                : require("../../assets/defaultCover.png")
+            }
             alt=""
             className="profileCoverImg"
           />
@@ -15,39 +19,35 @@ export default function Personcover({ user }) {
             <div className="profileMiddleTop">
               <div className="profileMiddleTopLeft">
                 <img
-                  src={require("../../assets/person/2.jpeg")}
+                  src={
+                    user2.profilePicture
+                      ? require(user2.profilePicture)
+                      : require("../../assets/noAvatar.png")
+                  }
                   alt=""
                   className="profileUserImg"
                 />
               </div>
               <div className="profileMiddleTopCenter">
                 <div className="profileUserInfos">
-                  <h4 className="profileUsername">{user.username}</h4>
+                  <h4 className="profileUsername">{user2.username}</h4>
                   <span className="profileFriendsCount">
-                    {user.followings && user.followings.length}
+                    {user2.followings && user2.followings.length}
                     位朋友
                   </span>
                   <div className="profileUserSmallImgs">
-                    <img
-                      src={require("../../assets/person/2.jpeg")}
-                      alt=""
-                      className="profileUserSmallImg"
-                    />
-                    <img
-                      src={require("../../assets/person/2.jpeg")}
-                      alt=""
-                      className="profileUserSmallImg"
-                    />
-                    <img
-                      src={require("../../assets/person/2.jpeg")}
-                      alt=""
-                      className="profileUserSmallImg"
-                    />
-                    <img
-                      src={require("../../assets/person/2.jpeg")}
-                      alt=""
-                      className="profileUserSmallImg"
-                    />
+                    {user2.followings &&
+                      user2.followings.map((u) => (
+                        <img
+                          src={
+                            u.profilePicture
+                              ? require(u.profilePicture)
+                              : require("../../assets/noAvatar.png")
+                          }
+                          alt=""
+                          className="profileUserSmallImg"
+                        />
+                      ))}
                   </div>
                 </div>
               </div>

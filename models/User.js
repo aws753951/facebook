@@ -48,13 +48,13 @@ const userschema = new mongoose.Schema(
       type: String,
       maxLength: 50,
     },
-    from: {
+    education: {
       type: String,
       maxLength: 50,
     },
     relationship: {
       type: String,
-      enum: ["single", "married", "complex"],
+      enum: ["單身", "交往中", "結婚", "一言難盡"],
     },
   },
   //   doc time, need change

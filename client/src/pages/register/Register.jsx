@@ -1,9 +1,36 @@
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import axios from "axios";
 
 export default function Register() {
   const navigate = useNavigate();
   const registerForLogin = () => {
     navigate("/login");
+  };
+
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+  const password2 = useRef();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password.current.value !== password2.current.value) {
+      // set custom warning, but it will be stuck
+      password2.current.setCustomValidity("密碼不一致");
+    } else {
+      try {
+        const user = {
+          username: username.current.value,
+          email: email.current.value,
+          password: password.current.value,
+        };
+        await axios.post("/auth/register", user);
+        navigate("/login");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   };
   return (
     <>
@@ -17,16 +44,47 @@ export default function Register() {
             </span>
           </div>
           <div className="loginRight">
-            <div className="loginBox">
-              <input placeholder="使用者名稱" className="loginInput" />
-              <input placeholder="電子郵件地址" className="loginInput" />
-              <input placeholder="密碼" className="loginInput" />
-              <button className="loginButton">註冊</button>
+            <form className="loginBox registerBox" onSubmit={handleSubmit}>
+              <input
+                placeholder="使用者名稱"
+                className="loginInput"
+                required
+                maxLength="20"
+                minLength="3"
+                ref={username}
+              />
+              <input
+                placeholder="電子郵件地址"
+                type={"email"}
+                className="loginInput"
+                required
+                maxLength="50"
+                ref={email}
+              />
+              <input
+                placeholder="密碼"
+                type={"password"}
+                className="loginInput"
+                required
+                minLength="6"
+                ref={password}
+              />
+              <input
+                placeholder="請再輸入一次密碼"
+                type={"password"}
+                className="loginInput"
+                required
+                minLength="6"
+                ref={password2}
+              />
+              <button type={"submit"} className="loginButton">
+                註冊
+              </button>
               <hr className="loginHr" />
               <button className="loginForRegister" onClick={registerForLogin}>
                 立即登入
               </button>
-            </div>
+            </form>
             <span className="warning">
               請勿輸入真實帳密，若你輸入，代表我做的太成功了
             </span>

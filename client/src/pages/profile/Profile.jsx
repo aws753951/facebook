@@ -7,12 +7,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
-  const [user, setUser] = useState({});
+  const [user2, setUser2] = useState({});
   const username = useParams().username;
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(`/users?username=${username}`);
-      setUser(res.data);
+      setUser2(res.data);
     };
     fetchUser();
   }, [username]);
@@ -23,12 +23,12 @@ export default function Profile() {
       <div className="profile">
         <div className="profileWrapper">
           <div className="profileTop">
-            <Personcover user={user} />
+            <Personcover user2={user2} />
           </div>
 
           <div className="profileBottom">
             <div className="profileBottomLeft">
-              <Personinfo user={user} />
+              <Personinfo user2={user2} />
             </div>
             <div className="profileBottomRight">
               <Centerbar username={username} />

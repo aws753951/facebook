@@ -9,25 +9,16 @@ import AddIcon from "@mui/icons-material/Add";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import profile from "../../assets/profile.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Nav() {
-  const navigate = useNavigate();
-  const navigateToHome = () => {
-    navigate("/");
-  };
-  const navigateToProfile = () => {
-    navigate("/profile");
-  };
-
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
         <div className="navbarIconItem0">
-          <FacebookOutlinedIcon
-            className="facebookIcon"
-            onClick={navigateToHome}
-          />
+          <Link to="/">
+            <FacebookOutlinedIcon className="facebookIcon" />
+          </Link>
         </div>
         <div className="searchBar">
           <SearchIcon className="searchIcon" />
@@ -67,12 +58,9 @@ export default function Nav() {
             <span className="navbarIconBadge">1</span>
           </div>
           <div className="navbarIconItem2">
-            <img
-              src={profile}
-              alt=""
-              className="navbarImg"
-              onClick={navigateToProfile}
-            />
+            <Link to="/profile/Marc Zhu">
+              <img src={profile} alt="" className="navbarImg" />
+            </Link>
           </div>
         </div>
       </div>

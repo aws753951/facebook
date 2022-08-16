@@ -1,10 +1,27 @@
+import { useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginCall } from "../../apiCalls";
+import { AuthContext } from "../../context/AuthContext";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Login() {
   const navigate = useNavigate();
   const loginForRegister = () => {
     navigate("/register");
   };
+
+  const email = useRef();
+  const password = useRef();
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    loginCall(
+      { email: email.current.value, password: password.current.value },
+      dispatch
+    );
+  };
+  console.log(user);
 
   return (
     <>
@@ -18,16 +35,41 @@ export default function Login() {
             </span>
           </div>
           <div className="loginRight">
-            <div className="loginBox">
-              <input placeholder="電子郵件地址" className="loginInput" />
-              <input placeholder="密碼" className="loginInput" />
-              <button className="loginButton">登入</button>
+            {/* solve type="email" */}
+            <form className="loginBox" onSubmit={handleSubmit}>
+              <input
+                placeholder="電子郵件地址"
+                type={"email"}
+                className="loginInput"
+                required
+                maxLength="50"
+                ref={email}
+              />
+              <input
+                placeholder="密碼"
+                type={"password"}
+                className="loginInput"
+                required
+                minLength="6"
+                ref={password}
+              />
+              <button
+                className="loginButton"
+                type="submit"
+                disabled={isFetching}
+              >
+                {isFetching ? (
+                  <CircularProgress style={{ color: "white" }} />
+                ) : (
+                  "登入"
+                )}
+              </button>
               <span className="loginForgot">忘記密碼</span>
               <hr className="loginHr" />
               <button className="loginForRegister" onClick={loginForRegister}>
                 建立新帳號
               </button>
-            </div>
+            </form>
             <span className="warning">
               請勿輸入真實帳密，若你輸入，代表我做的太成功了
             </span>
@@ -39,13 +81,21 @@ export default function Login() {
         <span className="footerIntro">
           請參考我的
           <span>
-            <a rel="noreferrer" href="https://marczhu.netlify.app/">
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://marczhu.netlify.app/"
+            >
               個人網站
             </a>
           </span>
           ,
           <span>
-            <a rel="noreferrer" href="https://github.com/aws753951/facebook">
+            <a
+              rel="noreferrer"
+              target="_blank"
+              href="https://github.com/aws753951/facebook"
+            >
               Github
             </a>
           </span>

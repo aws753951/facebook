@@ -9,7 +9,7 @@ export default function Centerbar({ username }) {
     const fetchPosts = async () => {
       const res = username
         ? await axios.get(`/posts/articals/personal/${username}`)
-        : await axios.get(`/posts/articals/all/62f3486953d07592de30cf0d`);
+        : await axios.get(`/posts/articals/all/62fa2c9dd93863cb85292e19`);
       setPosts(res.data);
     };
     fetchPosts();

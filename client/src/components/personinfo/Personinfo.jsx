@@ -1,12 +1,32 @@
 import { Users } from "../../dummy";
+import SchoolIcon from "@mui/icons-material/School";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
-export default function Personinfo({ user }) {
+export default function Personinfo({ user2 }) {
   return (
     <div className="personinfo">
       <div className="personinfoWrapper">
         <div className="personinfoProfile">
           <h4>簡介</h4>
-          <button className="addPersoninfo">新增個人簡介</button>
+          <span className="personinfoProfileDesc">{user2.desc}</span>
+          <button className="addPersoninfo">編輯個人簡介</button>
+          <div className="personinfoList">
+            <ul className="personinfoListItems">
+              <li className="personinfoListItem">
+                <LocationCityIcon className="Icon" />
+                <span className="IconText">{user2.city}</span>
+              </li>
+              <li className="personinfoListItem">
+                <SchoolIcon className="Icon" />
+                <span className="IconText">{user2.education}</span>
+              </li>
+              <li className="personinfoListItem">
+                <FavoriteIcon className="Icon" />
+                <span className="IconText">{user2.relationship}</span>
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="personinfoFriends">
           <div className="personinfoFriendsFunc">
@@ -14,7 +34,7 @@ export default function Personinfo({ user }) {
             <span className="more">查看所有朋友</span>
           </div>
           <span className="personinfoFriendsCount">
-            {user.followings && user.followings.length}位朋友
+            {user2.followings && user2.followings.length}位朋友
           </span>
           <div className="personinfoFriendsPictures">
             {Users.map((u) => (
