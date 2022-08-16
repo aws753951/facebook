@@ -5,16 +5,42 @@ import love from "../../assets/heart.png";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ReplyIcon from "@mui/icons-material/Reply";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({ post }) {
   const [currentUser, setCurrentUser] = useState({});
   const [likes, setLikes] = useState(post.goods.likes.length);
   const [loves, setLoves] = useState(post.goods.loves.length);
   const [hates, setHates] = useState(post.goods.hates.length);
+  // set isLiked for not always fetching counts from database.
+  const [isLiked, setIsLiked] = useState(false);
+
+  const { user } = useContext(AuthContext);
+
+  const handleLikes = async () => {
+    try {
+      // only update likes count, do not res sth useful cos save utility.
+      // dont use e.target.id, better using props to fetch post._id
+      await axios.put(`/posts/${post._id}/likes`, {
+        userID: user._id,
+      });
+    } catch (err) {}
+    // only for this currentUser using, it will change a lot when refreshing
+    // if isLiked = true, likes -1
+    setLikes(!isLiked ? likes + 1 : likes - 1);
+    // if false, turn true and the vice verse in "every post"
+    // it will coordinate with next useEffect to set the initial isLiked
+    setIsLiked(!isLiked);
+  };
+
+  useEffect(() => {
+    // if exist,then isLiked turn true
+    setIsLiked(post.goods.likes.includes(user._id));
+  }, [user._id, post.goods.likes]);
 
   useEffect(() => {
     // ***
@@ -39,7 +65,6 @@ export default function Post({ post }) {
                 className="ProfileImg"
               />
             </Link>
-
             <div className="profileInfo">
               <Link
                 to={`/profile/${currentUser.username}`}
@@ -85,7 +110,7 @@ export default function Post({ post }) {
           </div>
           <hr className="postBottomHr" />
           <div className="postBottomComments">
-            <div className="postBottomComment">
+            <div className="postBottomComment" onClick={handleLikes}>
               <ThumbUpOffAltIcon className="postBottomCommentIcon" />
               <span className="postBottomCommentAct">讚</span>
             </div>

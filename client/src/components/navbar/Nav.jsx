@@ -10,8 +10,11 @@ import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import profile from "../../assets/profile.jpg";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Nav() {
+  const { user } = useContext(AuthContext);
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -58,7 +61,7 @@ export default function Nav() {
             <span className="navbarIconBadge">1</span>
           </div>
           <div className="navbarIconItem2">
-            <Link to="/profile/Marc Zhu">
+            <Link to={`/profile/${user.username}`}>
               <img src={profile} alt="" className="navbarImg" />
             </Link>
           </div>
