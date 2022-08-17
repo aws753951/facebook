@@ -3,7 +3,7 @@ import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternate
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useRef } from "react";
 import { useState } from "react";
@@ -17,28 +17,23 @@ export default function Sharepost() {
   const [file, setFile] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newPost = {
-      userID: user._id,
-      desc: desc.current.value,
-    };
     if (file) {
       // 這沒錯 formdata可用 data.get("file")取得東西 --------1
       let formData = new FormData();
-      const fileName = Date.now() + file.name;
-      formData.append("name", fileName);
+      // const fileName = Date.now() + file.name;
       formData.append("file", file);
-      newPost.img = fileName;
-
+      formData.append("userID", user._id);
+      formData.append("desc", desc.current.value);
+      // newPost.img = fileName;
       try {
-        // 可能錯在傳過去後無法正確解讀 --------2  axios 跟formdata
-        await axios.post("/api/upload", formData);
-      } catch (err) {}
-    } else {
-      try {
-        await axios.post("/posts", newPost);
+        const res = await axios.post("/posts/upload", formData);
+        console.log(res.data);
       } catch (err) {}
     }
+
+    window.location.reload();
   };
+
   return (
     <div className="sharepost">
       <div className="sharepostWrapper">

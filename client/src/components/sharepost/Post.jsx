@@ -86,9 +86,9 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           <span className="postText">{post?.desc}</span>
-          {currentUser && currentUser.pictures && (
+          {post && post.img && (
             <img
-              src={require(currentUser.pictures)}
+              src={`http://localhost:6969/api/posts/buffer/${post._id}`}
               alt=""
               className="postImg"
             />

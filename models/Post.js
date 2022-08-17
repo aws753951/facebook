@@ -13,6 +13,9 @@ const postschema = new mongoose.Schema(
     img: {
       type: String,
     },
+    file: {
+      type: Buffer,
+    },
     goods: {
       likes: {
         type: Array,

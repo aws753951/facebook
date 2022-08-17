@@ -2,17 +2,34 @@ const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
 
-// post an article
-router.post("/", async (req, res) => {
-  // check before querying*******************************
+const multer = require("multer");
+const upload = multer({});
 
+// post an article
+router.post("/upload", upload.single("file"), async (req, res) => {
+  // check before querying*******************************
+  let { userID, desc } = req.body;
+  let { originalname, buffer } = req.file;
   try {
-    const newPost = new Post(req.body);
+    const newPost = new Post({
+      userID,
+      desc,
+      img: originalname,
+      file: buffer,
+    });
     const savedPost = await newPost.save();
-    res.status(200).json(savedPost);
+    res.status(200).json("ok");
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+router.get("/buffer/:_id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params._id);
+    res.set("Content-Type", "image/jpeg");
+    res.status(200).send(post.file);
+  } catch (err) {}
 });
 
 // update
