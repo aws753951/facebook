@@ -9,19 +9,25 @@ import AddIcon from "@mui/icons-material/Add";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import profile from "../../assets/profile.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Nav() {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const handleNavigate = () => {
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
         <div className="navbarIconItem0">
-          <Link to="/">
-            <FacebookOutlinedIcon className="facebookIcon" />
-          </Link>
+          <FacebookOutlinedIcon
+            className="facebookIcon"
+            onClick={handleNavigate}
+          />
         </div>
         <div className="searchBar">
           <SearchIcon className="searchIcon" />

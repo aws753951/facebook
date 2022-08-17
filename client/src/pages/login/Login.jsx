@@ -34,7 +34,6 @@ export default function Login() {
             </span>
           </div>
           <div className="loginRight">
-            {/* solve type="email" */}
             <form className="loginBox" onSubmit={handleSubmit}>
               <input
                 placeholder="電子郵件地址"

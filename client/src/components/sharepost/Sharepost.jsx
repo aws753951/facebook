@@ -17,21 +17,21 @@ export default function Sharepost() {
   const [file, setFile] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (file) {
-      // 這沒錯 formdata可用 data.get("file")取得東西 --------1
+    // check post has sth
+    if (desc.current.value || file) {
       let formData = new FormData();
-      // const fileName = Date.now() + file.name;
-      formData.append("file", file);
       formData.append("userID", user._id);
       formData.append("desc", desc.current.value);
-      // newPost.img = fileName;
+      if (file) {
+        formData.append("file", file);
+      }
       try {
-        const res = await axios.post("/posts/upload", formData);
-        console.log(res.data);
-      } catch (err) {}
+        await axios.post("/posts/upload", formData);
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
     }
-
-    window.location.reload();
   };
 
   return (
@@ -59,7 +59,11 @@ export default function Sharepost() {
               id="file"
               accept=".png,.jpeg,.jpg"
               onChange={(e) => {
-                setFile(e.target.files[0]);
+                if (e.target.files[0].size > 500000) {
+                  window.alert("請上傳低於0.5MB的照片");
+                } else {
+                  setFile(e.target.files[0]);
+                }
               }}
             />
           </label>
