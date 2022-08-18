@@ -2,6 +2,7 @@ import profile from "../../assets/profile.jpg";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
+import ClearIcon from "@mui/icons-material/Clear";
 import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -34,6 +35,11 @@ export default function Sharepost() {
     }
   };
 
+  function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = element.scrollHeight + "px";
+  }
+
   return (
     <div className="sharepost">
       <div className="sharepostWrapper">
@@ -41,14 +47,36 @@ export default function Sharepost() {
           <Link to={`/profile/${user.username}`}>
             <img src={profile} alt="" className="ProfileImg" />
           </Link>
-          <input
+          <textarea
+            // https://stackoverflow.com/questions/17772260/textarea-auto-height
+            onChange={(e) => {
+              e.target.style.height = "5px";
+              e.target.style.height = `${e.target.scrollHeight}px`;
+            }}
             placeholder={`${user.username} 你在想甚麼?`}
             className="sharepostInput"
             ref={desc}
           />
         </div>
+        {file && (
+          <div className="imgUploadingContainer">
+            <img
+              className="imgUploading"
+              src={URL.createObjectURL(file)}
+              alt=""
+            />
+            <ClearIcon
+              className="imgCancelIcon"
+              onClick={() => {
+                setFile(null);
+              }}
+            />
+          </div>
+        )}
         <hr className="sharepostHr" />
+
         <form className="sharepostBottom" onSubmit={handleSubmit}>
+          {/* ******************* */}
           <label htmlFor="file" className="sharepostOption">
             <AddPhotoAlternateOutlinedIcon className="sharepostIcon photoColor" />
             <span className="sharepostOptionText">相片/影片</span>

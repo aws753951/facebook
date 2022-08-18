@@ -5,13 +5,14 @@ import love from "../../assets/heart.png";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ReplyIcon from "@mui/icons-material/Reply";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function Post({ post }) {
+export default function Post({ post, xcancel }) {
   const [currentUser, setCurrentUser] = useState({});
   const [likes, setLikes] = useState(post.goods.likes.length);
   const [loves, setLoves] = useState(post.goods.loves.length);
@@ -21,9 +22,13 @@ export default function Post({ post }) {
 
   const { user } = useContext(AuthContext);
 
+  const [cancel, setCancel] = useState(false);
+  const handleCancel = (e) => {
+    setCancel(false);
+  };
+
   const handleLikes = async () => {
     try {
-      // only update likes count, do not res sth useful cos save utility.
       // dont use e.target.id, better using props to fetch post._id
       await axios.put(`/posts/${post._id}/likes`, {
         userID: user._id,
@@ -35,6 +40,26 @@ export default function Post({ post }) {
     // if false, turn true and the vice verse in "every post"
     // it will coordinate with next useEffect to set the initial isLiked
     setIsLiked(!isLiked);
+  };
+
+  const handlePost = (e) => {
+    e.stopPropagation();
+    setCancel(true);
+  };
+
+  const deletePost = async () => {
+    try {
+      await axios.delete(`/posts/${post._id}`, {
+        // https://stackoverflow.com/questions/51069552/axios-delete-request-with-body-and-headers
+        headers: {
+          Authorization: "authorizationToken",
+        },
+        data: { userID: user._id },
+      });
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -49,8 +74,13 @@ export default function Post({ post }) {
     });
   }, [post.userID]);
 
+  // useEffect(() => {
+  //   console.log(cancel);
+  //   console.log(xcancel);
+  // }, [cancel, xcancel]);
+
   return (
-    <div className="post">
+    <div className="post" onClick={handleCancel}>
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -81,11 +111,20 @@ export default function Post({ post }) {
             </div>
           </div>
           <div className="postTopRight">
-            <MoreHorizOutlinedIcon className="postMoreIcon" />
+            <MoreHorizOutlinedIcon
+              className="postMoreIcon"
+              onClick={handlePost}
+            />
+            {cancel && (
+              <div className="moreContent" onClick={deletePost}>
+                <DeleteForeverIcon />
+                <span>刪除</span>
+              </div>
+            )}
           </div>
         </div>
         <div className="postCenter">
-          <span className="postText">{post?.desc}</span>
+          <pre className="postText">{post?.desc}</pre>
           {post && post.img && (
             <img
               src={`http://localhost:6969/api/posts/buffer/${post._id}`}

@@ -67,20 +67,51 @@
             }
           }
           .profileMiddleTopRight {
-            flex: 1;
+            flex: 2;
             display: flex;
             align-items: flex-end;
             justify-content: flex-end;
             .editProfile {
-              font-size: 20px;
-              font-weight: 800;
-              padding: 10px;
-              text-align: center;
               background-color: rgb(224, 224, 224);
               display: flex;
               align-items: center;
+              padding: 10px;
+              border: none;
               border-radius: 5px;
+              font-size: 20px;
+              font-weight: 800;
               cursor: pointer;
+            }
+            .addFriend {
+              display: flex;
+              align-items: center;
+              padding: 10px;
+              border: none;
+              background-color: #1872f2;
+              border-radius: 5px;
+              font-size: 20px;
+              font-weight: 800;
+              color: white;
+              margin-left: 10px;
+              cursor: pointer;
+              span {
+                margin-left: 5px;
+              }
+            }
+            .sendMessage {
+              display: flex;
+              align-items: center;
+              padding: 10px;
+              border: none;
+              background-color: rgb(224, 224, 224);
+              border-radius: 5px;
+              font-size: 20px;
+              font-weight: 800;
+              margin-left: 10px;
+              cursor: pointer;
+              span {
+                margin-left: 5px;
+              }
             }
           }
         }

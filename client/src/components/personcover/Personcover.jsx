@@ -1,7 +1,39 @@
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import MessageIcon from "@mui/icons-material/Message";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Personcover({ user2 }) {
+  // after finishing setting in AuthReducers, we need dispatch to set state
+  const { user, dispatch } = useContext(AuthContext);
+  const [added, setAdded] = useState();
+
+  useEffect(() => {
+    setAdded(user.followings.includes(user2._id));
+    // 1. follow or unfollow change state.user 2. user2 dont change at first, so need to check it until it come in.
+  }, [user.followings, user2._id]);
+
+  const handleAddFriend = async () => {
+    try {
+      if (added) {
+        await axios.put(`/users/${user2._id}/unfollow`, { _id: user._id });
+        dispatch({ type: "UNFOLLOW", payload: user2._id });
+      } else {
+        await axios.put(`/users/${user2._id}/follow`, { _id: user._id });
+        dispatch({ type: "FOLLOW", payload: user2._id });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setAdded(!added);
+  };
+
   return (
     <div className="personcover">
       <div className="personWrapper">
@@ -52,10 +84,25 @@ export default function Personcover({ user2 }) {
                 </div>
               </div>
               <div className="profileMiddleTopRight">
-                <div className="editProfile">
-                  <EditIcon className="editIcon" />
-                  <span className="editProfileText">編輯檔案</span>
-                </div>
+                {user.username === user2.username && (
+                  <button className="editProfile">
+                    <EditIcon />
+                    <span>編輯檔案</span>
+                  </button>
+                )}
+
+                {user.username !== user2.username && (
+                  <button className="addFriend" onClick={handleAddFriend}>
+                    {added ? <PeopleAltIcon /> : <PersonAddIcon />}
+                    {added ? <span>朋友</span> : <span>加朋友</span>}
+                  </button>
+                )}
+                {user.username !== user2.username && (
+                  <button className="sendMessage">
+                    <MessageIcon />
+                    <span> 發送訊息</span>
+                  </button>
+                )}
               </div>
             </div>
             <hr className="profileMiddleHr" />

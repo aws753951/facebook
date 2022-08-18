@@ -14,3 +14,13 @@ export const LoginFailure = (error) => ({
   //   no need but common use
   payload: error,
 });
+
+export const Follow = (userID) => ({
+  type: "FOLLOW",
+  payload: userID,
+});
+
+export const unFollow = (userID) => ({
+  type: "UNFOLLOW",
+  payload: userID,
+});

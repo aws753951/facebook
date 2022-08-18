@@ -1,7 +1,7 @@
 .sharepost {
   background-color: white;
   width: 800px;
-  height: 170px;
+  min-height: 170px;
   border-radius: 10px;
   margin-bottom: 10px;
   -webkit-box-shadow: 0px 2px 9px -4px #000000;
@@ -10,16 +10,40 @@
     padding: 15px;
     .sharepostTop {
       display: flex;
-      align-items: center;
+      width: 100%;
+      min-height: 50px;
 
       .sharepostInput {
         width: calc(100% - 80px);
-        min-height: 50px;
         border: none;
         font-size: 20px;
+        resize: none;
+        overflow: hidden;
         &:focus {
           outline: none;
         }
+      }
+    }
+
+    .imgUploadingContainer {
+      padding: 20px 0px;
+      width: 100%;
+      height: 300px;
+      position: relative;
+      overflow-y: scroll;
+
+      .imgUploading {
+        object-fit: cover;
+        width: 100%;
+        border-radius: 20px;
+      }
+      .imgCancelIcon {
+        position: absolute;
+        top: 30px;
+        right: 10px;
+        background-color: white;
+        border-radius: 50%;
+        cursor: pointer;
       }
     }
     .sharepostHr {

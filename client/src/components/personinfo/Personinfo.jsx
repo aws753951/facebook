@@ -2,8 +2,26 @@ import { Users } from "../../dummy";
 import SchoolIcon from "@mui/icons-material/School";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Personinfo({ user2 }) {
+  const [friend, setFriend] = useState([]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendsList = await axios.get(`/users/friends/${user2._id}`);
+        setFriend(friendsList.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFriends();
+  }, [user2._id]);
+
   return (
     <div className="personinfo">
       <div className="personinfoWrapper">
@@ -37,15 +55,24 @@ export default function Personinfo({ user2 }) {
             {user2.followings && user2.followings.length}位朋友
           </span>
           <div className="personinfoFriendsPictures">
-            {Users.map((u) => (
-              <div className="FriendsContainer">
-                <img
-                  src={require(`../../assets/${u.profilePicture}`)}
-                  alt=""
-                  className="friendImg"
-                />
-                <span className="rightbarFriendName">{u.username}</span>
-              </div>
+            {friend.map((u) => (
+              <Link
+                to={`/profile/${u.username}/`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <div className="FriendsContainer">
+                  <img
+                    src={
+                      u.profilePicture
+                        ? ""
+                        : require(`../../assets/person/noAvatar.png`)
+                    }
+                    alt=""
+                    className="friendImg"
+                  />
+                  <span className="rightbarFriendName">{u.username}</span>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

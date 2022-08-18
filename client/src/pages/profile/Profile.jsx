@@ -8,9 +8,12 @@ import { useEffect, useState } from "react";
 
 export default function Profile() {
   const [user2, setUser2] = useState({});
+
+  // using react Route path
   const username = useParams().username;
   useEffect(() => {
     const fetchUser = async () => {
+      // fetching form databases, no need to be the same logic of params
       const res = await axios.get(`/users?username=${username}`);
       setUser2(res.data);
     };
