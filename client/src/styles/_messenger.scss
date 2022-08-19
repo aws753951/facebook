@@ -1,0 +1,168 @@
+.messenger {
+  height: calc(100vh - 80px);
+
+  display: flex;
+  .chatRoom {
+    flex: 1;
+    .chatRoomWrapper {
+      padding: 10px;
+      height: 100%;
+      overflow-y: scroll;
+      .chatRoomInfo {
+        margin: 10px 0px;
+        padding: 0px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        span {
+          font-size: 32px;
+          font-weight: 800;
+        }
+        .chatRoomIcons {
+          .Icon {
+            padding: 8px;
+            margin: 5px;
+            background-color: rgb(228, 228, 228);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 28px;
+            &:hover {
+              background-color: rgb(202, 202, 202);
+            }
+          }
+        }
+      }
+      .searchBarContainers {
+        display: flex;
+        justify-content: center;
+        .searchBar {
+          width: 90%;
+          background-color: rgb(236, 236, 236);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 5px;
+          border-radius: 50px;
+          margin-bottom: 20px;
+          .SearchIcon {
+            font-size: 24px;
+          }
+          .chatRootSearch {
+            width: 90%;
+            border: none;
+            font-size: 18px;
+            background-color: rgb(236, 236, 236);
+            padding: 5px;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  .chatPlace {
+    flex: 2.5;
+    .chatPlaceWrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .messageTop {
+        height: 70px;
+        box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        .messageInfo {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          .messagePerson {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-left: 10px;
+            &:hover {
+              background-color: rgb(238, 238, 238);
+            }
+            display: flex;
+            img {
+              width: 50px;
+              height: 50px;
+              object-fit: cover;
+              border-radius: 50%;
+              margin-right: 10px;
+            }
+            .messagePersonContent {
+              display: flex;
+              flex-direction: column;
+              .messageName {
+                font-size: 20px;
+                font-weight: 800;
+              }
+              // .messageTime {
+              // }
+            }
+          }
+          .messageIcons {
+            display: flex;
+            align-items: center;
+            .Icon {
+              color: blue;
+              font-size: 32px;
+              padding: 5px;
+              border-radius: 50%;
+              margin: 5px;
+              cursor: pointer;
+              &:hover {
+                background-color: rgb(233, 233, 233);
+              }
+            }
+          }
+        }
+      }
+      .messageMiddle {
+        height: calc(100vh - 200px);
+        overflow-y: scroll;
+      }
+      .messageBottom {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        margin: 10px 0px;
+        .Icon {
+          margin: 5px;
+          width: 30px;
+          height: 30px;
+          color: rgb(72, 151, 255);
+          cursor: pointer;
+        }
+        .chatContainer {
+          width: calc(100% - 160px);
+          height: 40px;
+          background-color: rgb(230, 230, 230);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50px;
+          .chat {
+            width: 95%;
+            font-size: 20px;
+            border: none;
+            outline: none;
+            background-color: rgb(230, 230, 230);
+          }
+        }
+      }
+    }
+  }
+  .chatPerson {
+    flex: 1;
+    .chatPersonWrapper {
+      padding: 10px;
+      height: 100%;
+    }
+  }
+}
+
+@import "./conversation";
+@import "./message";
+@import "./chatpersoninfo";

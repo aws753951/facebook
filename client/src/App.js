@@ -6,6 +6,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import Messenger from "./pages/messenger/Messenger";
 
 export default function App() {
   const { user } = useContext(AuthContext);
@@ -22,6 +23,7 @@ export default function App() {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         />
+        <Route path="/messenger" element={user ? <Messenger /> : <Login />} />
       </Routes>
     </>
   );
