@@ -17,6 +17,8 @@ import ChatPersonInfo from "../../components/chatpersoninfo/ChatPersonInfo";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
+import { io } from "socket.io-client";
+import { set } from "mongoose";
 
 export default function Messenger() {
   const { user } = useContext(AuthContext);
@@ -92,6 +94,13 @@ export default function Messenger() {
         senderID: user._id,
         text: sendMessage,
       };
+
+      socket.current.emit("sendMessage", {
+        senderID: user._id,
+        receiverID: friend._id,
+        text: sendMessage,
+      });
+
       try {
         const res = await axios.post("/messages", message);
         // using ... will draw datas from array, so need to add [] back.
@@ -113,6 +122,67 @@ export default function Messenger() {
     }
     // both of users send message should trigger effect.
   }, [messages]);
+
+  // when reaching messenger page, trigger socket.io to certain port.
+  // const [socket, setSocket] = useState(null);
+
+  // useEffect(() => {
+  //   setSocket(io("ws://localhost:6970"));
+  // }, []);
+
+  // useEffect(() => {
+  //   // 使用socket(socket.current) 傳送訊息到伺服器，頻道為"add user"，傳送內容為此人的id  ---- 1
+  //   socket?.emit("add user", user._id);
+  //   // 同時接收"getUsers"這個頻道的東西，伺服器傳來東西我們用users代替 ---- 6
+  //   socket?.on("getUsers", (users) => {
+  //     console.log(users);
+  //   });
+  // }, [user._id, socket]);
+
+  // ****** above is the same as below
+
+  const socket = useRef();
+
+  // 使用socket
+  const [arrivedMessage, setArrivedMessage] = useState(null);
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:6970");
+    // 接收訊息順便寫在這邊
+    socket.current.on("getMessage", (data) => {
+      // 若有收到新訊息，要更新message，分開寫或許一個可作為未讀通知，另一個可作為點開後的messages所有內容
+      setArrivedMessage({
+        senderID: data.senderID,
+        text: data.text,
+        createdAt: Date.now(),
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    // 若有非currentChat頁面的新訊息，當點回其新訊息的對話框時要能夠顯現出來
+    arrivedMessage &&
+      // 若不包含，代表當前訊息並非為當前頁面，messages的state處理currentChat
+      currentChat?.members.includes(arrivedMessage.senderID) &&
+      // 使用prev=>操作prev in setMessages   => 該方法會記得前一個state疊加運作，每一次都會重新跑setMessages，確保訊息沒遺失
+      setMessages((prev) => [...prev, arrivedMessage]);
+  }, [arrivedMessage, currentChat]);
+
+  useEffect(() => {
+    // 使用socket(socket.current) 傳送訊息到伺服器，頻道為"add user"，傳送內容為此人的id  ---- 1 (上線)
+    socket.current.emit("add user", user._id);
+    // 同時接收"getUsers"這個頻道的東西，伺服器傳來東西我們用users代替 ---- 6
+    socket.current.on("getUsers", (users) => {
+      console.log(users);
+    });
+  }, [user]);
+
+  // useEffect(() => {
+  //   // client get message from server "test1" channet, and get callback message
+  //   socket?.on("test", (message) => {
+  //     console.log(message);
+  //   });
+  // }, [socket]);
 
   return (
     <>
