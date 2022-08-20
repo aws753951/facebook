@@ -1,4 +1,22 @@
-export default function Conversation() {
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+export default function Conversation({ conversation, user }) {
+  const [friend, setFriend] = useState(null);
+
+  useEffect(() => {
+    const friendID = conversation.members.find((c) => c !== user._id);
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`/users/?userID=${friendID}`);
+        setFriend(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [conversation, user]);
+
   return (
     <div className="conversation">
       <img
@@ -7,7 +25,7 @@ export default function Conversation() {
         className="conversationImg"
       />
       <div className="conversationContainer">
-        <span className="conversationName">妹子</span>
+        <span className="conversationName">{friend && friend.username}</span>
         <span className="coversationText">安安幾歲住哪</span>
       </div>
     </div>

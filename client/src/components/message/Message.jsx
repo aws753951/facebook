@@ -1,4 +1,4 @@
-export default function Message({ own }) {
+export default function Message({ message, own }) {
   return (
     // change class and set condition of css => .message.own  // .message
     <div className={own ? "message own" : "message"}>
@@ -10,8 +10,8 @@ export default function Message({ own }) {
         />
 
         <div className="messageContainer">
-          <p className="messageTime">2022年8月13日 15:24</p>
-          <p className="messageText">哈囉你好嗎?</p>
+          <p className="messageTime">{message && message.createdAt}</p>
+          <p className="messageText">{message && message.text}</p>
         </div>
       </div>
     </div>

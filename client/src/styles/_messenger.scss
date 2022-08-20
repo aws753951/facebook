@@ -161,6 +161,16 @@
       height: 100%;
     }
   }
+  .noConversation {
+    flex: 3.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      font-size: 32px;
+      color: rgb(196, 196, 196);
+    }
+  }
 }
 
 @import "./conversation";

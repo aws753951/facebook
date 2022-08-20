@@ -1643,6 +1643,26 @@
   height: 100%;
 }
 
+.messenger .noConversation {
+  -webkit-box-flex: 3.5;
+      -ms-flex: 3.5;
+          flex: 3.5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.messenger .noConversation span {
+  font-size: 32px;
+  color: #c4c4c4;
+}
+
 .conversation {
   width: 100%;
   display: -webkit-box;
