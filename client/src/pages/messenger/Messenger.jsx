@@ -14,7 +14,7 @@ import GifBoxIcon from "@mui/icons-material/GifBox";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import SendIcon from "@mui/icons-material/Send";
 import ChatPersonInfo from "../../components/chatpersoninfo/ChatPersonInfo";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -38,6 +38,12 @@ export default function Messenger() {
 
   // showing in chatplace when choosing conversation, and need to fetch all messages
   const [currentChat, setCurrentChat] = useState(null);
+
+  useEffect(() => {
+    setCurrentChat(conversations[0]);
+  }, [conversations]);
+
+  // when click the conversation, it will change currenChat, and get all this chat's messages
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -47,7 +53,7 @@ export default function Messenger() {
         const res = currentChat
           ? await axios.get(`/messages/${currentChat._id}`)
           : "";
-        // set array
+        // get all messages (array) from currentChat, and put these messages into <Message/> with prop own to check whether senderID === user
         setMessages(res.data);
       } catch (err) {
         console.log(err);
@@ -73,6 +79,40 @@ export default function Messenger() {
       getUser();
     }
   }, [user, currentChat]);
+
+  // send new message
+  const [sendMessage, setSendMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    // don't refresh page
+    e.preventDefault();
+    if (sendMessage) {
+      const message = {
+        conversationID: currentChat._id,
+        senderID: user._id,
+        text: sendMessage,
+      };
+      try {
+        const res = await axios.post("/messages", message);
+        // using ... will draw datas from array, so need to add [] back.
+        setMessages([...messages, res.data]);
+        setSendMessage("");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  // make message showing the newest message
+  // useRef to do being DOM with scrollToNew.current, so when using if should use if (scrollToNew.current){}
+  const scrollToNew = useRef();
+
+  useEffect(() => {
+    if (scrollToNew.current) {
+      scrollToNew.current.scrollIntoView();
+    }
+    // both of users send message should trigger effect.
+  }, [messages]);
 
   return (
     <>
@@ -135,20 +175,31 @@ export default function Messenger() {
                 <div className="messageMiddle">
                   {messages &&
                     messages.map((message) => (
-                      <Message
-                        message={message}
-                        own={message.senderID === user._id}
-                      />
+                      <div key={message._id} ref={scrollToNew}>
+                        <Message
+                          message={message}
+                          own={message.senderID === user._id}
+                        />
+                      </div>
                     ))}
                 </div>
                 <div className="messageBottom">
                   <AddCircleIcon className="Icon" />
                   <InsertPhotoIcon className="Icon" />
                   <GifBoxIcon className="Icon" />
-                  <div className="chatContainer">
-                    <input type="text" className="chat" placeholder="Aa" />
-                  </div>
-                  <SendIcon className="Icon" />
+                  <form className="chatContainer" onSubmit={handleSubmit}>
+                    <input
+                      type="text"
+                      className="chat"
+                      placeholder="Aa"
+                      onChange={(e) => {
+                        setSendMessage(e.target.value);
+                      }}
+                      // after sending, it will be clear with setSendMessage
+                      value={sendMessage}
+                    />
+                  </form>
+                  <SendIcon className="Icon" onClick={handleSubmit} />
                 </div>
               </div>
             </div>
