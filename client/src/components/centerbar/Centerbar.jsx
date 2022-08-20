@@ -1,19 +1,16 @@
 import axios from "axios";
-import { useContext } from "react";
 import { useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import Post from "../sharepost/Post";
 import Sharepost from "../sharepost/Sharepost";
 
-export default function Centerbar({ username, xcancel }) {
+export default function Centerbar({ user, userID }) {
   const [posts, setPosts] = useState([]);
-  // username is the guy you want to check, user is you.
-  const { user } = useContext(AuthContext);
+  // userID is the guy you want to check, user is you.
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = username
-        ? await axios.get(`/posts/articals/personal/${username}`)
+      const res = userID
+        ? await axios.get(`/posts/articals/personal/${userID}`)
         : await axios.get(`/posts/articals/all/${user._id}`);
       setPosts(
         res.data.sort((a, b) => {
@@ -24,15 +21,19 @@ export default function Centerbar({ username, xcancel }) {
     };
     fetchPosts();
     // 第一時間user是靠父類別進行渲染，若[]則吃不到，得等user發生變化此頁再渲染
-  }, [username, user._id]);
+  }, [userID, user._id]);
 
   return (
     <div className="centerbarContainer">
       <div className="centerWrapper">
-        {(!username || username === user.username) && <Sharepost />}
-        {posts.map((post) => (
-          <Post key={post._id} post={post} xcancel={xcancel} />
-        ))}
+        {(!userID || userID === user._id) && <Sharepost />}
+        {posts && posts.map((post) => <Post key={post._id} post={post} />)}
+        {/* 都沒有貼文且不是本人查看的話 */}
+        {posts && posts.length === 0 && userID && userID !== user._id && (
+          <div className="noPost">
+            <span>貼文</span>
+          </div>
+        )}
       </div>
     </div>
   );

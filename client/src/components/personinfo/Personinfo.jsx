@@ -1,4 +1,3 @@
-import { Users } from "../../dummy";
 import SchoolIcon from "@mui/icons-material/School";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -7,41 +6,43 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Personinfo({ user2 }) {
+export default function Personinfo({ currentUser }) {
   const [friend, setFriend] = useState([]);
 
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendsList = await axios.get(`/users/friends/${user2._id}`);
+        const friendsList = await axios.get(
+          `/users/friends/${currentUser._id}`
+        );
         setFriend(friendsList.data);
       } catch (err) {
         console.log(err);
       }
     };
     getFriends();
-  }, [user2._id]);
+  }, [currentUser._id]);
 
   return (
     <div className="personinfo">
       <div className="personinfoWrapper">
         <div className="personinfoProfile">
           <h4>簡介</h4>
-          <span className="personinfoProfileDesc">{user2.desc}</span>
+          <span className="personinfoProfileDesc">{currentUser.desc}</span>
           <button className="addPersoninfo">編輯個人簡介</button>
           <div className="personinfoList">
             <ul className="personinfoListItems">
               <li className="personinfoListItem">
                 <LocationCityIcon className="Icon" />
-                <span className="IconText">{user2.city}</span>
+                <span className="IconText">{currentUser.city}</span>
               </li>
               <li className="personinfoListItem">
                 <SchoolIcon className="Icon" />
-                <span className="IconText">{user2.education}</span>
+                <span className="IconText">{currentUser.education}</span>
               </li>
               <li className="personinfoListItem">
                 <FavoriteIcon className="Icon" />
-                <span className="IconText">{user2.relationship}</span>
+                <span className="IconText">{currentUser.relationship}</span>
               </li>
             </ul>
           </div>
@@ -52,15 +53,15 @@ export default function Personinfo({ user2 }) {
             <span className="more">查看所有朋友</span>
           </div>
           <span className="personinfoFriendsCount">
-            {user2.followings && user2.followings.length}位朋友
+            {currentUser.addfriends && currentUser.addfriends.length}位朋友
           </span>
           <div className="personinfoFriendsPictures">
             {friend.map((u) => (
               <Link
-                to={`/profile/${u.username}/`}
+                to={`/profile/${u._id}/`}
                 style={{ textDecoration: "none", color: "black" }}
               >
-                <div className="FriendsContainer">
+                <div key={friend._id} className="FriendsContainer">
                   <img
                     src={
                       u.profilePicture

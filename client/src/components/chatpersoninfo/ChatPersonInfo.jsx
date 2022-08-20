@@ -2,7 +2,7 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function ChatPersonInfo() {
+export default function ChatPersonInfo({ friend }) {
   return (
     <div className="chatpersoninfo">
       <div className="chatpersoninfoWrapper">
@@ -12,7 +12,7 @@ export default function ChatPersonInfo() {
             alt=""
             className="img"
           />
-          <span className="name">妹子</span>
+          <span className="name">{friend && friend.username}</span>
           <span className="time">5分鐘前</span>
         </div>
         <div className="personInfo">

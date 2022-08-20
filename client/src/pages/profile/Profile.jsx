@@ -5,20 +5,23 @@ import Centerbar from "../../components/centerbar/Centerbar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Profile() {
-  const [user2, setUser2] = useState({});
+  const { user } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState({});
 
   // using react Route path
-  const username = useParams().username;
+  const userID = useParams().userID;
   useEffect(() => {
     const fetchUser = async () => {
       // fetching form databases, no need to be the same logic of params
-      const res = await axios.get(`/users?username=${username}`);
-      setUser2(res.data);
+      const res = await axios.get(`/users/?userID=${userID}`);
+      setCurrentUser(res.data);
     };
     fetchUser();
-  }, [username]);
+  }, [userID]);
 
   return (
     <>
@@ -26,15 +29,15 @@ export default function Profile() {
       <div className="profile">
         <div className="profileWrapper">
           <div className="profileTop">
-            <Personcover user2={user2} />
+            <Personcover currentUser={currentUser} />
           </div>
 
           <div className="profileBottom">
             <div className="profileBottomLeft">
-              <Personinfo user2={user2} />
+              <Personinfo currentUser={currentUser} />
             </div>
             <div className="profileBottomRight">
-              <Centerbar username={username} />
+              <Centerbar user={user} userID={userID} />
             </div>
           </div>
         </div>

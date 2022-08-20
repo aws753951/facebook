@@ -59,15 +59,17 @@ export default function Nav() {
             <AddIcon className="navbarImg" />
           </div>
           <div className="navbarIconItem2">
-            <ChatIcon className="navbarImg" />
-            <span className="navbarIconBadge">2</span>
+            <Link to="/messenger">
+              <ChatIcon className="navbarImg" />
+              <span className="navbarIconBadge">2</span>
+            </Link>
           </div>
           <div className="navbarIconItem2">
             <NotificationsIcon className="navbarImg" />
             <span className="navbarIconBadge">1</span>
           </div>
           <div className="navbarIconItem2">
-            <Link to={`/profile/${user.username}`}>
+            <Link to={`/profile/${user._id}`}>
               <img src={profile} alt="" className="navbarImg" />
             </Link>
           </div>

@@ -135,7 +135,7 @@ router.get("/:_id", async (req, res) => {
     res.status(500).json(err);
   }
 });
-// get all personal and followings' articles
+// get all personal and addfriends' articles
 router.get("/articals/all/:userID", async (req, res) => {
   try {
     const currentUser = await User.findById(req.params.userID);
@@ -143,7 +143,7 @@ router.get("/articals/all/:userID", async (req, res) => {
     // *** solve iterable promises
     const friendsPosts = await Promise.all(
       // iterable promises
-      currentUser.followings.map((item) => {
+      currentUser.addfriends.map((item) => {
         // return an array, but need time
         return Post.find({ userID: item });
       })
@@ -156,9 +156,9 @@ router.get("/articals/all/:userID", async (req, res) => {
 });
 
 // get all personal's articles
-router.get("/articals/personal/:username", async (req, res) => {
+router.get("/articals/personal/:userID", async (req, res) => {
   try {
-    const foundUser = await User.findOne({ username: req.params.username });
+    const foundUser = await User.findOne({ _id: req.params.userID });
     const userPosts = await Post.find({ userID: foundUser._id });
     res.status(200).json(userPosts);
   } catch (err) {

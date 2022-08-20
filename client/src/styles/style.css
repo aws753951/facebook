@@ -196,6 +196,8 @@
 }
 
 .navbarContainer .navbarRight .navbarIcons2 .navbarIconItem2 .navbarImg {
+  text-decoration: none;
+  color: black;
   background-color: #ebebeb;
   padding: 8px;
   margin: 5px;
@@ -313,6 +315,28 @@
           align-items: center;
 }
 
+.centerbarContainer .centerWrapper .noPost {
+  background-color: white;
+  width: 800px;
+  min-height: 50px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.centerbarContainer .centerWrapper .noPost span {
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: 800;
+}
+
 .photoColor {
   color: #fc2424;
 }
@@ -330,7 +354,7 @@
   width: 800px;
   min-height: 170px;
   border-radius: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   -webkit-box-shadow: 0px 2px 9px -4px #000000;
   box-shadow: 0px 2px 9px -4px #000000;
 }
@@ -436,7 +460,7 @@
   border-radius: 10px;
   -webkit-box-shadow: 0px 2px 9px -4px #000000;
   box-shadow: 0px 2px 9px -4px #000000;
-  margin: 10px 0px;
+  margin-bottom: 10px;
 }
 
 .post .postWrapper {
@@ -1509,8 +1533,8 @@
 
 .messenger .chatPlace .chatPlaceWrapper .messageTop {
   height: 70px;
-  -webkit-box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, 0.2);
   padding: 5px;
 }
 
@@ -1585,7 +1609,7 @@
 }
 
 .messenger .chatPlace .chatPlaceWrapper .messageMiddle {
-  height: calc(100vh - 200px);
+  height: calc(100vh - 210px);
   overflow-y: scroll;
 }
 
@@ -1636,6 +1660,9 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  -webkit-box-shadow: -2px 0px 0px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: -2px 0px 0px 0px rgba(0, 0, 0, 0.2);
+  height: calc(100vh - 80px);
 }
 
 .messenger .chatPerson .chatPersonWrapper {

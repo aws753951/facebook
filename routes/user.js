@@ -59,7 +59,7 @@ router.get("/friends/:_id", async (req, res) => {
     const foundUser = await User.findById(req.params._id);
     // using map with Promise.all to get async data and array
     const friends = await Promise.all(
-      foundUser.followings.map((friend) => {
+      foundUser.addfriends.map((friend) => {
         return User.findById(friend);
       })
     );
@@ -121,6 +121,30 @@ router.put("/:_id/unfollow", async (req, res) => {
     }
   } else {
     res.status(403).json("You cannot unfollow yourself.");
+  }
+});
+
+// add friend
+
+router.put("/:_id/addFriend", async (req, res) => {
+  if (req.params._id !== req.body._id) {
+    try {
+      const foundUser = await User.findById(req.params._id);
+      const currentUser = await User.findById(req.body._id);
+      if (!foundUser.addfriends.includes(req.body._id)) {
+        await foundUser.updateOne({ $push: { addfriends: req.body._id } });
+        await currentUser.updateOne({ $push: { addfriends: req.params._id } });
+        res.status(200).json("Addfriend finished.");
+      } else {
+        await foundUser.updateOne({ $pull: { addfriends: req.body._id } });
+        await currentUser.updateOne({ $pull: { addfriends: req.params._id } });
+        res.status(200).json("Unfriend finished.");
+      }
+    } catch (err) {
+      return res.status(500).json(err);
+    }
+  } else {
+    res.status(403).json("You cannot add yourself.");
   }
 });
 

@@ -14,20 +14,15 @@ import GifBoxIcon from "@mui/icons-material/GifBox";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import SendIcon from "@mui/icons-material/Send";
 import ChatPersonInfo from "../../components/chatpersoninfo/ChatPersonInfo";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { useState } from "react";
 import axios from "axios";
 
 export default function Messenger() {
   const { user } = useContext(AuthContext);
 
-  // showing in left chatroom
+  // show all conversations in array.
   const [conversations, setConversations] = useState([]);
-
-  // showing in chatplace when choosing conversation, and need to fetch all messages
-  const [currentChat, setCurrentChat] = useState(null);
-  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const getConversations = async () => {
@@ -41,10 +36,17 @@ export default function Messenger() {
     getConversations();
   }, [user._id]);
 
+  // showing in chatplace when choosing conversation, and need to fetch all messages
+  const [currentChat, setCurrentChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+
   useEffect(() => {
     const getMessages = async () => {
       try {
-        const res = await axios.get(`/messages/${currentChat._id}`);
+        // currentChat._id is conversation._id
+        const res = currentChat
+          ? await axios.get(`/messages/${currentChat._id}`)
+          : "";
         // set array
         setMessages(res.data);
       } catch (err) {
@@ -53,6 +55,24 @@ export default function Messenger() {
     };
     getMessages();
   }, [currentChat]);
+
+  // get currentChat's user info
+  const [friend, setFriend] = useState(null);
+
+  useEffect(() => {
+    if (currentChat) {
+      const friendID = currentChat.members.find((c) => c !== user._id);
+      const getUser = async () => {
+        try {
+          const res = await axios.get(`/users/?userID=${friendID}`);
+          setFriend(res.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      getUser();
+    }
+  }, [user, currentChat]);
 
   return (
     <>
@@ -80,6 +100,7 @@ export default function Messenger() {
             </div>
             {conversations.map((conversation) => (
               <div
+                key={conversation._id}
                 onClick={() => {
                   setCurrentChat(conversation);
                 }}
@@ -98,7 +119,9 @@ export default function Messenger() {
                     <div className="messagePerson">
                       <img src={require("../../assets/person/8.jpeg")} alt="" />
                       <div className="messagePersonContent">
-                        <span className="messageName">妹子</span>
+                        <span className="messageName">
+                          {friend && friend.username}
+                        </span>
                         <span className="messageTime">5分鐘前</span>
                       </div>
                     </div>
@@ -125,15 +148,13 @@ export default function Messenger() {
                   <div className="chatContainer">
                     <input type="text" className="chat" placeholder="Aa" />
                   </div>
-
-                  {/* <TagFacesIcon /> */}
                   <SendIcon className="Icon" />
                 </div>
               </div>
             </div>
             <div className="chatPerson">
               <div className="chatPersonWrapper">
-                <ChatPersonInfo />
+                <ChatPersonInfo friend={friend} />
               </div>
             </div>
           </>

@@ -9,24 +9,28 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-export default function Personcover({ user2 }) {
+export default function Personcover({ currentUser }) {
   // after finishing setting in AuthReducers, we need dispatch to set state
   const { user, dispatch } = useContext(AuthContext);
   const [added, setAdded] = useState();
 
   useEffect(() => {
-    setAdded(user.followings.includes(user2._id));
-    // 1. follow or unfollow change state.user 2. user2 dont change at first, so need to check it until it come in.
-  }, [user.followings, user2._id]);
+    setAdded(user.addfriends.includes(currentUser._id));
+    // 1. follow or unfollow change state.user 2. currentUser dont change at first, so need to check it until it come in.
+  }, [user.addfriends, currentUser._id]);
 
   const handleAddFriend = async () => {
     try {
       if (added) {
-        await axios.put(`/users/${user2._id}/unfollow`, { _id: user._id });
-        dispatch({ type: "UNFOLLOW", payload: user2._id });
+        await axios.put(`/users/${currentUser._id}/addFriend`, {
+          _id: user._id,
+        });
+        dispatch({ type: "UNFRIENDS", payload: currentUser._id });
       } else {
-        await axios.put(`/users/${user2._id}/follow`, { _id: user._id });
-        dispatch({ type: "FOLLOW", payload: user2._id });
+        await axios.put(`/users/${currentUser._id}/addFriend`, {
+          _id: user._id,
+        });
+        dispatch({ type: "ADDFRIENDS", payload: currentUser._id });
       }
     } catch (err) {
       console.log(err);
@@ -40,8 +44,8 @@ export default function Personcover({ user2 }) {
         <div className="profileTop">
           <img
             src={
-              user2.profilePicture
-                ? require(user2.profilePicture)
+              currentUser.profilePicture
+                ? require(currentUser.profilePicture)
                 : require("../../assets/defaultCover.png")
             }
             alt=""
@@ -52,8 +56,8 @@ export default function Personcover({ user2 }) {
               <div className="profileMiddleTopLeft">
                 <img
                   src={
-                    user2.profilePicture
-                      ? require(user2.profilePicture)
+                    currentUser.profilePicture
+                      ? require(currentUser.profilePicture)
                       : require("../../assets/noAvatar.png")
                   }
                   alt=""
@@ -62,15 +66,16 @@ export default function Personcover({ user2 }) {
               </div>
               <div className="profileMiddleTopCenter">
                 <div className="profileUserInfos">
-                  <h4 className="profileUsername">{user2.username}</h4>
+                  <h4 className="profileUsername">{currentUser.username}</h4>
                   <span className="profileFriendsCount">
-                    {user2.followings && user2.followings.length}
+                    {currentUser.addfriends && currentUser.addfriends.length}
                     位朋友
                   </span>
                   <div className="profileUserSmallImgs">
-                    {user2.followings &&
-                      user2.followings.map((u) => (
+                    {currentUser.addfriends &&
+                      currentUser.addfriends.map((u) => (
                         <img
+                          key={u._id}
                           src={
                             u.profilePicture
                               ? require(u.profilePicture)
@@ -84,20 +89,20 @@ export default function Personcover({ user2 }) {
                 </div>
               </div>
               <div className="profileMiddleTopRight">
-                {user.username === user2.username && (
+                {user.username === currentUser.username && (
                   <button className="editProfile">
                     <EditIcon />
                     <span>編輯檔案</span>
                   </button>
                 )}
 
-                {user.username !== user2.username && (
+                {user.username !== currentUser.username && (
                   <button className="addFriend" onClick={handleAddFriend}>
                     {added ? <PeopleAltIcon /> : <PersonAddIcon />}
                     {added ? <span>朋友</span> : <span>加朋友</span>}
                   </button>
                 )}
-                {user.username !== user2.username && (
+                {user.username !== currentUser.username && (
                   <button className="sendMessage">
                     <MessageIcon />
                     <span> 發送訊息</span>
