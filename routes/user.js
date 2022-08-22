@@ -116,6 +116,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/search/", async (req, res) => {
+  const username = req.query.username;
+  try {
+    foundUsers = await User.find({ username });
+    res.status(200).json(foundUsers);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // get friends: _id, img, username
 router.get("/friends/:_id", async (req, res) => {
   try {

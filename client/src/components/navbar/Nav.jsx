@@ -9,12 +9,14 @@ import AddIcon from "@mui/icons-material/Add";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 
 export default function Nav() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [inputName, setInputName] = useState("");
   const navigateToHome = () => {
     navigate("/");
     window.location.reload();
@@ -24,6 +26,13 @@ export default function Nav() {
     navigate("/messenger");
     window.location.reload();
   };
+
+  const searchName = () => {
+    if (inputName) {
+      navigate(`/search/${inputName}`);
+    }
+  };
+
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -33,10 +42,16 @@ export default function Nav() {
             onClick={navigateToHome}
           />
         </div>
-        <div className="searchBar">
+        <form className="searchBar" onSubmit={searchName}>
           <SearchIcon className="searchIcon" />
-          <input placeholder="Search Fakebook" className="searchInput" />
-        </div>
+          <input
+            placeholder="Search Fakebook"
+            className="searchInput"
+            onChange={(e) => {
+              setInputName(e.target.value);
+            }}
+          />
+        </form>
       </div>
       <div className="navbarCenter">
         <div className="navbarIcons">

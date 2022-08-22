@@ -1,12 +1,16 @@
 import moment from "moment";
 
-export default function Message({ message, own }) {
+export default function Message({ message, own, pic }) {
   return (
     // change class and set condition of css => .message.own  // .message
     <div className={own ? "message own" : "message"}>
       <div className="messageWrapper">
         <img
-          src={require("../../assets/person/8.jpeg")}
+          src={
+            pic
+              ? `http://localhost:6969/api/users/buffer/photos/${message?.senderID}`
+              : require("../../assets/person/noAvatar.png")
+          }
           alt=""
           className="messageImg"
         />

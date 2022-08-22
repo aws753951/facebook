@@ -27,4 +27,15 @@ router.get("/:conversationID", async (req, res) => {
   }
 });
 
+router.get("/lastmsg/:conversationID", async (req, res) => {
+  try {
+    const msg = await Message.findOne({
+      conversationID: req.params.conversationID,
+    }).sort({ createdAt: -1 });
+    res.status(200).json(msg);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

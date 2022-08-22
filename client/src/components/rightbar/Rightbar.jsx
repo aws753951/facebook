@@ -2,10 +2,14 @@ import CakeIcon from "@mui/icons-material/Cake";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import SearchIcon from "@mui/icons-material/Search";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
-export default function Rightbar({ user, onlineUsers }) {
+export default function Rightbar({ onlineUsers }) {
+  const { user, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [friends, setFriend] = useState([]);
 
   useEffect(() => {
@@ -45,10 +49,32 @@ export default function Rightbar({ user, onlineUsers }) {
           <ul className="rigthbarFriendsList">
             {friends &&
               friends.map((f) => (
-                <li key={f._id} className="rigthbarFriendsListItem">
+                <li
+                  key={f._id}
+                  className="rigthbarFriendsListItem"
+                  onClick={() => {
+                    const addConversation = async () => {
+                      try {
+                        await axios.post("/conversations", {
+                          senderID: user._id,
+                          receiverID: f._id,
+                        });
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    };
+                    addConversation();
+                    navigate("/messenger");
+                    window.location.reload();
+                  }}
+                >
                   <div className="rightbarFriendsContainer">
                     <img
-                      src={require(`../../assets/noAvatar.png`)}
+                      src={
+                        f.profilePicture
+                          ? `http://localhost:6969/api/users/buffer/photos/${f._id}`
+                          : require("../../assets/person/noAvatar.png")
+                      }
                       alt=""
                       className="ProfileImg"
                     />

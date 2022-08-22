@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { io } from "socket.io-client";
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUser] = useState([]);
 
@@ -28,7 +28,7 @@ export default function Home() {
       <div className="homeContainer">
         <Leftbar />
         <Centerbar user={user} />
-        <Rightbar user={user} onlineUsers={onlineUsers} />
+        <Rightbar onlineUsers={onlineUsers} />
       </div>
     </>
   );

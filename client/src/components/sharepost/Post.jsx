@@ -97,7 +97,7 @@ export default function Post({ post }) {
             </Link>
             <div className="profileInfo">
               <Link
-                to={`/profile/${currentUser.username}`}
+                to={`/profile/${currentUser._id}`}
                 style={{ textDecoration: "none", color: "black" }}
               >
                 <span className="postUsername">

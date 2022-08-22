@@ -1,15 +1,15 @@
 import EditIcon from "@mui/icons-material/Edit";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MessageIcon from "@mui/icons-material/Message";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Personcover({ currentUser, setEdit }) {
+  const navigate = useNavigate();
   // after finishing setting in AuthReducers, we need dispatch to set state
   const { user, dispatch } = useContext(AuthContext);
   const [added, setAdded] = useState();
@@ -68,24 +68,23 @@ export default function Personcover({ currentUser, setEdit }) {
                 <div className="profileUserInfos">
                   <h4 className="profileUsername">{currentUser.username}</h4>
                   <span className="profileFriendsCount">
-                    {currentUser.addfriends && currentUser.addfriends.length}
-                    位朋友
+                    {currentUser.addfriends &&
+                      `${currentUser.addfriends.length} 位朋友`}
                   </span>
-                  <div className="profileUserSmallImgs">
+                  {/* <div className="profileUserSmallImgs">
                     {currentUser.addfriends &&
                       currentUser.addfriends.map((u) => (
                         <img
-                          key={u._id}
+                          key={u}
                           src={
-                            u.profilePicture
-                              ? require(u.profilePicture)
-                              : require("../../assets/noAvatar.png")
+                            `http://localhost:6969/api/users/buffer/photos/${u}` ||
+                            require("../../assets/noAvatar.png")
                           }
                           alt=""
                           className="profileUserSmallImg"
                         />
                       ))}
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="profileMiddleTopRight">
@@ -109,7 +108,25 @@ export default function Personcover({ currentUser, setEdit }) {
                   </button>
                 )}
                 {user.username !== currentUser.username && (
-                  <button className="sendMessage">
+                  <button
+                    className="sendMessage"
+                    onClick={() => {
+                      const addConversation = async () => {
+                        console.log(user._id);
+                        try {
+                          await axios.post("/conversations", {
+                            senderID: user._id,
+                            receiverID: currentUser._id,
+                          });
+                        } catch (err) {
+                          console.log(err);
+                        }
+                      };
+                      addConversation();
+                      navigate("/messenger");
+                      window.location.reload();
+                    }}
+                  >
                     <MessageIcon />
                     <span> 發送訊息</span>
                   </button>

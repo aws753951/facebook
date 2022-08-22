@@ -8,7 +8,11 @@ export default function ChatPersonInfo({ friend, onlineUsers }) {
       <div className="chatpersoninfoWrapper">
         <div className="person">
           <img
-            src={require("../../assets/person/8.jpeg")}
+            src={
+              friend?.profilePicture
+                ? `http://localhost:6969/api/users/buffer/photos/${friend._id}`
+                : require("../../assets/person/noAvatar.png")
+            }
             alt=""
             className="img"
           />

@@ -53,7 +53,8 @@ export default function Personinfo({ currentUser }) {
             <span className="more">查看所有朋友</span>
           </div>
           <span className="personinfoFriendsCount">
-            {currentUser.addfriends && currentUser.addfriends.length}位朋友
+            {currentUser.addfriends &&
+              `${currentUser.addfriends.length} 位朋友`}
           </span>
           <div className="personinfoFriendsPictures">
             {friend.map((u) => (

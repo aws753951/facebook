@@ -18,7 +18,6 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
-import moment from "moment";
 
 export default function Messenger() {
   const { user } = useContext(AuthContext);
@@ -40,10 +39,29 @@ export default function Messenger() {
 
   // showing in chatplace when choosing conversation, and need to fetch all messages
   const [currentChat, setCurrentChat] = useState(null);
+  // 只是檢查該對話框是否有大頭照
+  const [pic, setPic] = useState(false);
 
   useEffect(() => {
     setCurrentChat(conversations[0]);
   }, [conversations]);
+
+  useEffect(() => {
+    const other = currentChat?.members.filter((m) => m !== user._id);
+    const getUser = async () => {
+      const res = await axios.get(`/users/?userID=${other}`);
+      if (res.data.profilePicture) {
+        setPic(true);
+      } else {
+        setPic(false);
+      }
+    };
+    getUser();
+  }, [currentChat]);
+
+  useEffect(() => {
+    console.log(pic);
+  }, [pic]);
 
   // when click the conversation, it will change currenChat, and get all this chat's messages
   const [messages, setMessages] = useState([]);
@@ -139,9 +157,6 @@ export default function Messenger() {
     socket?.on("getUsers", (users) => {
       setOnlineUser(users.map((user) => user.userID));
     });
-    socket?.on("getOfflineUser", (users) => {
-      console.log(users);
-    });
   }, [user._id, socket]);
 
   // ****** above is the same as below
@@ -205,7 +220,11 @@ export default function Messenger() {
                   setCurrentChat(conversation);
                 }}
               >
-                <Conversation conversation={conversation} user={user} />
+                <Conversation
+                  conversation={conversation}
+                  user={user}
+                  messages={messages}
+                />
               </div>
             ))}
           </div>
@@ -217,7 +236,14 @@ export default function Messenger() {
                 <div className="messageTop">
                   <div className="messageInfo">
                     <div className="messagePerson">
-                      <img src={require("../../assets/person/8.jpeg")} alt="" />
+                      <img
+                        src={
+                          friend?.profilePicture
+                            ? `http://localhost:6969/api/users/buffer/photos/${friend._id}`
+                            : require("../../assets/person/noAvatar.png")
+                        }
+                        alt=""
+                      />
                       <div className="messagePersonContent">
                         <span className="messageName">
                           {friend && friend.username}
@@ -243,6 +269,7 @@ export default function Messenger() {
                         <Message
                           message={message}
                           own={message.senderID === user._id}
+                          pic={pic}
                         />
                       </div>
                     ))}
