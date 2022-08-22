@@ -48,7 +48,7 @@ io.on("connection", (socket) => {
     // 伺服器收到客戶端A的訊息，在已上線的客戶端中找到符合的人
     const foundUser = getUser(receiverID);
     // 針對符合的人，找到他的socketID，寄送到頻道為getMessage，內容為寄送人的{senderID, text}
-    io.to(foundUser.socketID).emit("getMessage", {
+    io.to(foundUser?.socketID).emit("getMessage", {
       senderID,
       text,
     });

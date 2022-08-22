@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-export default function Personcover({ currentUser }) {
+export default function Personcover({ currentUser, setEdit }) {
   // after finishing setting in AuthReducers, we need dispatch to set state
   const { user, dispatch } = useContext(AuthContext);
   const [added, setAdded] = useState();
@@ -45,7 +45,7 @@ export default function Personcover({ currentUser }) {
           <img
             src={
               currentUser.profilePicture
-                ? require(currentUser.profilePicture)
+                ? `http://localhost:6969/api/users/buffer/covers/${currentUser._id}`
                 : require("../../assets/defaultCover.png")
             }
             alt=""
@@ -57,7 +57,7 @@ export default function Personcover({ currentUser }) {
                 <img
                   src={
                     currentUser.profilePicture
-                      ? require(currentUser.profilePicture)
+                      ? `http://localhost:6969/api/users/buffer/photos/${currentUser._id}`
                       : require("../../assets/noAvatar.png")
                   }
                   alt=""
@@ -90,7 +90,13 @@ export default function Personcover({ currentUser }) {
               </div>
               <div className="profileMiddleTopRight">
                 {user.username === currentUser.username && (
-                  <button className="editProfile">
+                  <button
+                    className="editProfile"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setEdit(true);
+                    }}
+                  >
                     <EditIcon />
                     <span>編輯檔案</span>
                   </button>

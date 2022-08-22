@@ -1,4 +1,3 @@
-import profile from "../../assets/profile.jpg";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
@@ -44,8 +43,16 @@ export default function Sharepost() {
     <div className="sharepost">
       <div className="sharepostWrapper">
         <div className="sharepostTop">
-          <Link to={`/profile/${user.username}`}>
-            <img src={profile} alt="" className="ProfileImg" />
+          <Link to={`/profile/${user._id}`}>
+            <img
+              src={
+                user.profilePicture
+                  ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
+                  : require("../../assets/noAvatar.png")
+              }
+              alt=""
+              className="ProfileImg"
+            />
           </Link>
           <textarea
             // https://stackoverflow.com/questions/17772260/textarea-auto-height

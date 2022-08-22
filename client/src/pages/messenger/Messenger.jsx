@@ -18,7 +18,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
-import { set } from "mongoose";
+import moment from "moment";
 
 export default function Messenger() {
   const { user } = useContext(AuthContext);
@@ -95,7 +95,7 @@ export default function Messenger() {
         text: sendMessage,
       };
 
-      socket.current.emit("sendMessage", {
+      socket?.emit("sendMessage", {
         senderID: user._id,
         receiverID: friend._id,
         text: sendMessage,
@@ -104,6 +104,7 @@ export default function Messenger() {
       try {
         const res = await axios.post("/messages", message);
         // using ... will draw datas from array, so need to add [] back.
+        // on every click only send one messagem so no need to use prev=>set(prev...)
         setMessages([...messages, res.data]);
         setSendMessage("");
       } catch (err) {
@@ -124,65 +125,54 @@ export default function Messenger() {
   }, [messages]);
 
   // when reaching messenger page, trigger socket.io to certain port.
-  // const [socket, setSocket] = useState(null);
-
-  // useEffect(() => {
-  //   setSocket(io("ws://localhost:6970"));
-  // }, []);
-
-  // useEffect(() => {
-  //   // 使用socket(socket.current) 傳送訊息到伺服器，頻道為"add user"，傳送內容為此人的id  ---- 1
-  //   socket?.emit("add user", user._id);
-  //   // 同時接收"getUsers"這個頻道的東西，伺服器傳來東西我們用users代替 ---- 6
-  //   socket?.on("getUsers", (users) => {
-  //     console.log(users);
-  //   });
-  // }, [user._id, socket]);
-
-  // ****** above is the same as below
-
-  const socket = useRef();
-
-  // 使用socket
-  const [arrivedMessage, setArrivedMessage] = useState(null);
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUser] = useState([]);
 
   useEffect(() => {
-    socket.current = io("ws://localhost:6970");
-    // 接收訊息順便寫在這邊
-    socket.current.on("getMessage", (data) => {
-      // 若有收到新訊息，要更新message，分開寫或許一個可作為未讀通知，另一個可作為點開後的messages所有內容
-      setArrivedMessage({
-        senderID: data.senderID,
-        text: data.text,
-        createdAt: Date.now(),
-      });
-    });
+    setSocket(io("ws://localhost:6970"));
   }, []);
 
   useEffect(() => {
-    // 若有非currentChat頁面的新訊息，當點回其新訊息的對話框時要能夠顯現出來
-    arrivedMessage &&
-      // 若不包含，代表當前訊息並非為當前頁面，messages的state處理currentChat
-      currentChat?.members.includes(arrivedMessage.senderID) &&
-      // 使用prev=>操作prev in setMessages   => 該方法會記得前一個state疊加運作，每一次都會重新跑setMessages，確保訊息沒遺失
-      setMessages((prev) => [...prev, arrivedMessage]);
-  }, [arrivedMessage, currentChat]);
-
-  useEffect(() => {
-    // 使用socket(socket.current) 傳送訊息到伺服器，頻道為"add user"，傳送內容為此人的id  ---- 1 (上線)
-    socket.current.emit("add user", user._id);
+    // 使用socket(socket) 傳送訊息到伺服器，頻道為"add user"，傳送內容為此人的id  ---- 1
+    socket?.emit("add user", user._id);
     // 同時接收"getUsers"這個頻道的東西，伺服器傳來東西我們用users代替 ---- 6
-    socket.current.on("getUsers", (users) => {
+    socket?.on("getUsers", (users) => {
+      setOnlineUser(users.map((user) => user.userID));
+    });
+    socket?.on("getOfflineUser", (users) => {
       console.log(users);
     });
-  }, [user]);
+  }, [user._id, socket]);
 
-  // useEffect(() => {
-  //   // client get message from server "test1" channet, and get callback message
-  //   socket?.on("test", (message) => {
-  //     console.log(message);
-  //   });
-  // }, [socket]);
+  // ****** above is the same as below
+
+  // const socket = useRef();
+
+  const [arrivedMessage, setArrivedMessage] = useState(null);
+
+  useEffect(() => {
+    // 使用socket
+    // socket = io("ws://localhost:6970");
+    // 接收訊息順便寫在這邊
+    socket?.on("getMessage", (data) => {
+      // 若有收到新訊息，基本上socket不管你是在哪個currentChat,都會傳進來，state皆處理現用戶端網頁的頁面而已
+      setArrivedMessage({
+        senderID: data.senderID,
+        text: data.text,
+        // when not refreshing & not click another currentChat, it will show js date
+        createdAt: Date.now(),
+      });
+    });
+  }, [socket]);
+
+  // 此為針對該currentChat有人傳訊息過來使用的，非該currentChat的訊息透過上述另個useEffect(從資料庫拉的)更新messages state
+  useEffect(() => {
+    arrivedMessage &&
+      currentChat?.members.includes(arrivedMessage.senderID) &&
+      // 使用prev=>操作prev in setMessages   => 該方法會記得前一個state疊加運作，每一次都會重新跑setMessages，確保訊息沒遺失
+      // 目前影響不大，主要在於傳進來的訊息都是一條一條的，並沒有同一useEffect內set兩次
+      setMessages((prev) => [...prev, arrivedMessage]);
+  }, [arrivedMessage, currentChat]);
 
   return (
     <>
@@ -232,7 +222,11 @@ export default function Messenger() {
                         <span className="messageName">
                           {friend && friend.username}
                         </span>
-                        <span className="messageTime">5分鐘前</span>
+                        <span className="messageTime">
+                          {onlineUsers.includes(friend?._id)
+                            ? "目前在線上"
+                            : "下線"}
+                        </span>
                       </div>
                     </div>
                     <div className="messageIcons">
@@ -275,7 +269,7 @@ export default function Messenger() {
             </div>
             <div className="chatPerson">
               <div className="chatPersonWrapper">
-                <ChatPersonInfo friend={friend} />
+                <ChatPersonInfo friend={friend} onlineUsers={onlineUsers} />
               </div>
             </div>
           </>

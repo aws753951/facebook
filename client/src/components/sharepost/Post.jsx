@@ -12,7 +12,7 @@ import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function Post({ post, xcancel }) {
+export default function Post({ post }) {
   const [currentUser, setCurrentUser] = useState({});
   const [likes, setLikes] = useState(post.goods.likes.length);
   const [loves, setLoves] = useState(post.goods.loves.length);
@@ -84,11 +84,11 @@ export default function Post({ post, xcancel }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${currentUser.username}`}>
+            <Link to={`/profile/${currentUser._id}`}>
               <img
                 src={
-                  currentUser.profile
-                    ? require(currentUser.profile)
+                  currentUser.profilePicture
+                    ? `http://localhost:6969/api/users/buffer/photos/${currentUser._id}`
                     : require("../../assets/noAvatar.png")
                 }
                 alt=""

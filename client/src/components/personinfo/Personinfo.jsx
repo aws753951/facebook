@@ -65,7 +65,7 @@ export default function Personinfo({ currentUser }) {
                   <img
                     src={
                       u.profilePicture
-                        ? ""
+                        ? `http://localhost:6969/api/users/buffer/photos/${u._id}`
                         : require(`../../assets/person/noAvatar.png`)
                     }
                     alt=""

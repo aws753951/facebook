@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default function Message({ message, own }) {
   return (
     // change class and set condition of css => .message.own  // .message
@@ -10,7 +12,9 @@ export default function Message({ message, own }) {
         />
 
         <div className="messageContainer">
-          <p className="messageTime">{message && message.createdAt}</p>
+          <p className="messageTime">
+            {message && moment(message.createdAt).format("YYYY-MM-DD-HH:mm:ss")}
+          </p>
           <p className="messageText">{message && message.text}</p>
         </div>
       </div>

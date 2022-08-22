@@ -10,6 +10,7 @@ import Messenger from "./pages/messenger/Messenger";
 
 export default function App() {
   const { user } = useContext(AuthContext);
+
   return (
     <>
       <Routes>
@@ -23,7 +24,10 @@ export default function App() {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         />
-        <Route path="/messenger" element={user ? <Messenger /> : <Login />} />
+        <Route
+          path="/messenger"
+          element={user ? <Messenger /> : <Navigate to="/" />}
+        />
       </Routes>
     </>
   );

@@ -5,8 +5,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Rightbar({ user }) {
-  const [friend, setFriend] = useState([]);
+export default function Rightbar({ user, onlineUsers }) {
+  const [friends, setFriend] = useState([]);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -43,8 +43,8 @@ export default function Rightbar({ user }) {
             </div>
           </div>
           <ul className="rigthbarFriendsList">
-            {friend &&
-              friend.map((f) => (
+            {friends &&
+              friends.map((f) => (
                 <li key={f._id} className="rigthbarFriendsListItem">
                   <div className="rightbarFriendsContainer">
                     <img
@@ -52,7 +52,9 @@ export default function Rightbar({ user }) {
                       alt=""
                       className="ProfileImg"
                     />
-                    <span className="onlineLight"></span>
+                    {onlineUsers && onlineUsers.includes(f._id) && (
+                      <span className="onlineLight"></span>
+                    )}
                   </div>
                   <span className="rightbarFriendName">{f.username}</span>
                 </li>

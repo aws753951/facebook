@@ -1,6 +1,20 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const multer = require("multer");
+const upload = multer({
+  limits: {
+    // 限制容量500KB
+    fileSize: 500000,
+  },
+  fileFilter(req, file, cb) {
+    // 只接受三種圖片格式
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      cb(new Error("Please upload an image"));
+    }
+    cb(null, true);
+  },
+});
 
 // update user
 router.put("/:_id", async (req, res) => {
@@ -19,6 +33,55 @@ router.put("/:_id", async (req, res) => {
     }
   } else {
     return res.status(403).json("Only person himself can update his account.");
+  }
+});
+
+// update photo and cover\
+router.post("/upload/photos", upload.single("file"), async (req, res) => {
+  // check before querying*******************************
+
+  try {
+    await User.findByIdAndUpdate(req.body.userID, {
+      profilePicture: req.file.buffer,
+    });
+    res.status(200).send("ok");
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+router.get("/buffer/photos/:_id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params._id);
+    res.set("Content-Type", "image/jpeg");
+    // only send can cipher img
+    res.status(200).send(user.profilePicture);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.post("/upload/covers", upload.single("file"), async (req, res) => {
+  // check before querying*******************************
+
+  try {
+    await User.findByIdAndUpdate(req.body.userID, {
+      coverPicture: req.file.buffer,
+    });
+    res.status(200).send("ok");
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+router.get("/buffer/covers/:_id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params._id);
+    res.set("Content-Type", "image/jpeg");
+    // only send can cipher img
+    res.status(200).send(user.coverPicture);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 

@@ -8,7 +8,6 @@ import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import AddIcon from "@mui/icons-material/Add";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import profile from "../../assets/profile.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -16,8 +15,13 @@ import { AuthContext } from "../../context/AuthContext";
 export default function Nav() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const handleNavigate = () => {
+  const navigateToHome = () => {
     navigate("/");
+    window.location.reload();
+  };
+
+  const navigateToMessenger = () => {
+    navigate("/messenger");
     window.location.reload();
   };
   return (
@@ -26,7 +30,7 @@ export default function Nav() {
         <div className="navbarIconItem0">
           <FacebookOutlinedIcon
             className="facebookIcon"
-            onClick={handleNavigate}
+            onClick={navigateToHome}
           />
         </div>
         <div className="searchBar">
@@ -59,10 +63,8 @@ export default function Nav() {
             <AddIcon className="navbarImg" />
           </div>
           <div className="navbarIconItem2">
-            <Link to="/messenger">
-              <ChatIcon className="navbarImg" />
-              <span className="navbarIconBadge">2</span>
-            </Link>
+            <ChatIcon className="navbarImg" onClick={navigateToMessenger} />
+            <span className="navbarIconBadge">2</span>
           </div>
           <div className="navbarIconItem2">
             <NotificationsIcon className="navbarImg" />
@@ -70,7 +72,15 @@ export default function Nav() {
           </div>
           <div className="navbarIconItem2">
             <Link to={`/profile/${user._id}`}>
-              <img src={profile} alt="" className="navbarImg" />
+              <img
+                src={
+                  user.profilePicture
+                    ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
+                    : require("../../assets/noAvatar.png")
+                }
+                alt=""
+                className="profile"
+              />
             </Link>
           </div>
         </div>

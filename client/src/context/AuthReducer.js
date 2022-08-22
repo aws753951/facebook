@@ -63,6 +63,14 @@ const AuthReducer = (state, action) => {
           addfriends: state.user.addfriends.filter((f) => f !== action.payload),
         },
       };
+    case "ADDPHOTOS":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          profilePicture: action.payload,
+        },
+      };
     default:
       return state;
   }
