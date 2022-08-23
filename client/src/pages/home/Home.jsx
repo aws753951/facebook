@@ -7,9 +7,10 @@ import { AuthContext } from "../../context/AuthContext";
 import { io } from "socket.io-client";
 
 export default function Home() {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUser] = useState([]);
+  const [logout, setLogout] = useState(false);
 
   useEffect(() => {
     setSocket(io("ws://localhost:6970"));
@@ -24,8 +25,13 @@ export default function Home() {
 
   return (
     <>
-      <Nav />
-      <div className="homeContainer">
+      <Nav logout={logout} setLogout={setLogout} />
+      <div
+        className="homeContainer"
+        onClick={() => {
+          setLogout(false);
+        }}
+      >
         <Leftbar />
         <Centerbar user={user} />
         <Rightbar onlineUsers={onlineUsers} />

@@ -21,6 +21,7 @@ import { io } from "socket.io-client";
 
 export default function Messenger() {
   const { user } = useContext(AuthContext);
+  const [logout, setLogout] = useState(false);
 
   // show all conversations in array.
   const [conversations, setConversations] = useState([]);
@@ -191,7 +192,7 @@ export default function Messenger() {
 
   return (
     <>
-      <Nav />
+      <Nav logout={logout} setLogout={setLogout} />
       <div className="messenger">
         <div className="chatRoom">
           <div className="chatRoomWrapper">

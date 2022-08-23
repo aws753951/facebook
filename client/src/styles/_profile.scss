@@ -156,6 +156,7 @@
     .profileBottom {
       width: 1350px;
       display: flex;
+      flex-wrap: wrap;
       .profileBottomLeft {
         flex: 1;
       }

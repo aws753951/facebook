@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Personinfo({ currentUser }) {
+export default function Personinfo({ currentUser, setEditPerson }) {
   const [friend, setFriend] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Personinfo({ currentUser }) {
           <button className="addPersoninfo">編輯個人簡介</button>
           <div className="personinfoList">
             <ul className="personinfoListItems">
-              <li className="personinfoListItem">
+              {/* <li className="personinfoListItem">
                 <LocationCityIcon className="Icon" />
                 <span className="IconText">{currentUser.city}</span>
               </li>
@@ -43,7 +43,7 @@ export default function Personinfo({ currentUser }) {
               <li className="personinfoListItem">
                 <FavoriteIcon className="Icon" />
                 <span className="IconText">{currentUser.relationship}</span>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>

@@ -32,7 +32,7 @@ export default function Rightbar({ onlineUsers }) {
           <div className="rightbarbirthdayItem">
             <CakeIcon className="rightbarIcon" />
             <span className="rightbarListItemText">
-              <b>蔡英文</b>和<b>習近平</b>都是今天生日
+              <b>周瑜</b>和<b>諸葛亮</b>都是今天生日
             </span>
           </div>
           <hr className="rightbarHr" />

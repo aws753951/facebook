@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 
 export default function Register() {
@@ -28,7 +28,8 @@ export default function Register() {
         await axios.post("/auth/register", user);
         navigate("/login");
       } catch (err) {
-        console.log(err);
+        console.log(err.response.data);
+        email.current.setCustomValidity("帳號已被註冊過囉");
       }
     }
   };
@@ -60,6 +61,9 @@ export default function Register() {
                 required
                 maxLength="50"
                 ref={email}
+                onChange={(e) => {
+                  e.target.setCustomValidity("");
+                }}
               />
               <input
                 placeholder="密碼"
@@ -76,6 +80,9 @@ export default function Register() {
                 required
                 minLength="6"
                 ref={password2}
+                onChange={(e) => {
+                  e.target.setCustomValidity("");
+                }}
               />
               <button type={"submit"} className="loginButton">
                 註冊

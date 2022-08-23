@@ -14,8 +14,10 @@ export default function Profile() {
   const { user, dispatch } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState({});
   const [edit, setEdit] = useState(false);
+  const [editPerson, setEditPerson] = useState(false);
   const [photo, setPhoto] = useState(null);
   const [cover, setCover] = useState(null);
+  const [logout, setLogout] = useState(false);
 
   // using react Route path
   const userID = useParams().userID;
@@ -65,7 +67,7 @@ export default function Profile() {
 
   return (
     <>
-      <Nav />
+      <Nav logout={logout} setLogout={setLogout} />
       <div className="profile">
         {edit && (
           <>
@@ -158,7 +160,6 @@ export default function Profile() {
             <div className="filter"></div>
           </>
         )}
-
         <div className="profileWrapper">
           <div className="profileTop">
             <Personcover currentUser={currentUser} setEdit={setEdit} />

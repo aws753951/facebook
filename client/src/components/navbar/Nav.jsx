@@ -12,8 +12,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-export default function Nav() {
+export default function Nav({ logout, setLogout }) {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [inputName, setInputName] = useState("");
@@ -85,19 +86,58 @@ export default function Nav() {
             <NotificationsIcon className="navbarImg" />
             <span className="navbarIconBadge">1</span>
           </div>
-          <div className="navbarIconItem2">
-            <Link to={`/profile/${user._id}`}>
-              <img
-                src={
-                  user.profilePicture
-                    ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
-                    : require("../../assets/noAvatar.png")
-                }
-                alt=""
-                className="profile"
-              />
-            </Link>
+          <div
+            className="navbarIconItem2"
+            onClick={(e) => {
+              setLogout(true);
+              e.stopPropagation();
+            }}
+          >
+            <img
+              src={
+                user.profilePicture
+                  ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
+                  : require("../../assets/noAvatar.png")
+              }
+              alt=""
+              className="profile"
+            />
           </div>
+          {logout && (
+            <div className="logout">
+              <div className="profileContainer">
+                <ul className="logoutFuncs">
+                  <Link
+                    to={`/profile/${user._id}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <li className="toProfile">
+                      <img
+                        src={
+                          user.profilePicture
+                            ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
+                            : require("../../assets/noAvatar.png")
+                        }
+                        alt=""
+                        className="profile"
+                      />
+                      <span>{user.username}</span>
+                    </li>
+                  </Link>
+                  <li
+                    className="logoutFunc"
+                    onClick={() => {
+                      localStorage.removeItem("user");
+                      window.location.reload();
+                    }}
+                  >
+                    <LogoutIcon className="Icon" />
+                    <span>登出</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

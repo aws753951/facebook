@@ -89,6 +89,7 @@
           top: 2px;
           right: -5px;
           display: flex;
+          display: none;
           justify-content: center;
           align-items: center;
           font-size: 10px;
@@ -117,6 +118,82 @@
           object-fit: cover;
         }
       }
+      .logout {
+        position: absolute;
+        background-color: white;
+        width: 400px;
+        border-radius: 10px;
+        -webkit-box-shadow: 0px 2px 9px -4px #000000;
+        box-shadow: 0px 2px 9px -4px #000000;
+        top: 50px;
+        .profileContainer {
+          padding: 10px;
+          .logoutFuncs {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            .toProfile {
+              display: flex;
+              align-items: center;
+              cursor: pointer;
+              &:hover {
+                background-color: rgb(241, 241, 241);
+                border-radius: 10px;
+              }
+              img {
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                object-fit: cover;
+                padding: 10px;
+              }
+              span {
+                font-size: 20px;
+                font-weight: 800;
+              }
+            }
+
+            .logoutFunc {
+              display: flex;
+              align-items: center;
+              padding: 10px;
+              cursor: pointer;
+              &:hover {
+                background-color: rgb(241, 241, 241);
+                border-radius: 10px;
+              }
+              .Icon {
+                font-size: 30px;
+                padding: 8px;
+                background-color: rgb(214, 214, 214);
+                border-radius: 50%;
+              }
+              span {
+                font-size: 20px;
+                margin-left: 5px;
+              }
+            }
+          }
+        }
+      }
     }
+  }
+}
+
+@media screen and (max-width: 1650px) {
+  .navbarIconItem {
+    padding: 10px 3vw !important;
+  }
+  .searchBar {
+    width: 200px !important;
+  }
+  .searchInput {
+    width: 150px !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .navbarCenter {
+    display: none !important;
   }
 }

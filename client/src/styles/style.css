@@ -186,6 +186,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  display: none;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -222,6 +223,101 @@
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout {
+  position: absolute;
+  background-color: white;
+  width: 400px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 2px 9px -4px #000000;
+  box-shadow: 0px 2px 9px -4px #000000;
+  top: 50px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer {
+  padding: 10px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .toProfile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .toProfile:hover {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .toProfile img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  padding: 10px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .toProfile span {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .logoutFunc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .logoutFunc:hover {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .logoutFunc .Icon {
+  font-size: 30px;
+  padding: 8px;
+  background-color: #d6d6d6;
+  border-radius: 50%;
+}
+
+.navbarContainer .navbarRight .navbarIcons2 .logout .profileContainer .logoutFuncs .logoutFunc span {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+@media screen and (max-width: 1650px) {
+  .navbarIconItem {
+    padding: 10px 3vw !important;
+  }
+  .searchBar {
+    width: 200px !important;
+  }
+  .searchInput {
+    width: 150px !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .navbarCenter {
+    display: none !important;
+  }
 }
 
 .leftbarContainer {
@@ -296,6 +392,12 @@
   display: block;
   padding: 5px 0px;
   margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1650px) {
+  .leftbarContainer {
+    display: none;
+  }
 }
 
 .centerbarContainer {
@@ -807,6 +909,12 @@
   margin-left: 5px;
 }
 
+@media screen and (max-width: 1150px) {
+  .rightbarContainer {
+    display: none;
+  }
+}
+
 .profile {
   position: relative;
 }
@@ -1038,6 +1146,8 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .profile .profileWrapper .profileBottom .profileBottomLeft {
@@ -1327,10 +1437,6 @@
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.personinfo {
-  width: 100%;
 }
 
 .personinfo .personinfoWrapper {
@@ -2156,6 +2262,12 @@
   border-radius: 50%;
   font-size: 30px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1100px) {
+  .chatPerson {
+    display: none;
+  }
 }
 
 .Search {

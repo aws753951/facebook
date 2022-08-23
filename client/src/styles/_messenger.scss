@@ -179,3 +179,9 @@
 @import "./conversation";
 @import "./message";
 @import "./chatpersoninfo";
+
+@media screen and (max-width: 1100px) {
+  .chatPerson {
+    display: none;
+  }
+}
