@@ -106,6 +106,12 @@ app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 
-app.listen(6969, () => {
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build", "index.html"));
+});
+
+app.listen(process.env.PORT || 6969, () => {
   console.log("Port 6969 is running.");
 });
