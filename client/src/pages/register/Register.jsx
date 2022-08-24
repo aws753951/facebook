@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import axios from "axios";
+import { useRef } from "react";
+import { axiosInstance } from "../../config";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function Register() {
           email: email.current.value,
           password: password.current.value,
         };
-        await axios.post("/auth/register", user);
+        await axiosInstance.post("/auth/register", user);
         navigate("/login");
       } catch (err) {
         console.log(err.response.data);

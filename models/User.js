@@ -21,18 +21,12 @@ const userschema = new mongoose.Schema(
       minLength: 6,
     },
     profilePicture: {
-      type: Buffer,
+      type: String,
+      default: "",
     },
     coverPicture: {
-      type: Buffer,
-    },
-    followers: {
-      type: Array,
-      default: [],
-    },
-    followings: {
-      type: Array,
-      default: [],
+      type: String,
+      default: "",
     },
     addfriends: {
       type: Array,

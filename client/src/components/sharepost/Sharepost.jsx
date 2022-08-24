@@ -3,41 +3,43 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useRef } from "react";
 import { useState } from "react";
-import axios from "axios";
-const FormData = global.FormData;
+import { axiosInstance, axiosUpload } from "../../config";
 
 export default function Sharepost() {
   const { user } = useContext(AuthContext);
   const desc = useRef();
-
   const [file, setFile] = useState(null);
+
+  // PO文並檢查是否有檔案或內容，擇一即可
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newPost = {
+      userID: user._id,
+      desc: desc.current.value,
+    };
     // check post has sth
-    if (desc.current.value || file) {
-      let formData = new FormData();
-      formData.append("userID", user._id);
-      formData.append("desc", desc.current.value);
-      if (file) {
-        formData.append("file", file);
-      }
+    if (file) {
+      const data = new FormData();
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.img = fileName;
       try {
-        await axios.post("/posts/upload", formData);
-        window.location.reload();
-      } catch (err) {
-        console.log(err);
-      }
+        await axiosUpload.post("/uploadpost", data);
+      } catch (err) {}
     }
+    // 就算只有file，也要記錄其img的名稱
+    try {
+      await axiosInstance.post("/posts", newPost);
+    } catch (err) {
+      console.log(err);
+    }
+    window.location.reload();
   };
-
-  function auto_grow(element) {
-    element.style.height = "5px";
-    element.style.height = element.scrollHeight + "px";
-  }
 
   return (
     <div className="sharepost">
@@ -47,8 +49,8 @@ export default function Sharepost() {
             <img
               src={
                 user.profilePicture
-                  ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
-                  : require("../../assets/noAvatar.png")
+                  ? require(`../../images/profilePicture/${user.profilePicture}`)
+                  : require("../../images/noAvatar.png")
               }
               alt=""
               className="ProfileImg"

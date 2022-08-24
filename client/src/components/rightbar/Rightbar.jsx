@@ -4,18 +4,20 @@ import SearchIcon from "@mui/icons-material/Search";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Rightbar({ onlineUsers }) {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [friends, setFriend] = useState([]);
 
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendsList = await axios.get(`/users/friends/${user._id}`);
+        const friendsList = await axiosInstance.get(
+          `/users/friends/${user._id}`
+        );
         setFriend(friendsList.data);
       } catch (err) {
         console.log(err);
@@ -53,9 +55,10 @@ export default function Rightbar({ onlineUsers }) {
                   key={f._id}
                   className="rigthbarFriendsListItem"
                   onClick={() => {
+                    // 沒建立會議的建立會議，有建立會議的跳轉訊息頁
                     const addConversation = async () => {
                       try {
-                        await axios.post("/conversations", {
+                        await axiosInstance.post("/conversations", {
                           senderID: user._id,
                           receiverID: f._id,
                         });
@@ -72,8 +75,8 @@ export default function Rightbar({ onlineUsers }) {
                     <img
                       src={
                         f.profilePicture
-                          ? `http://localhost:6969/api/users/buffer/photos/${f._id}`
-                          : require("../../assets/person/noAvatar.png")
+                          ? require(`../../images/profilePicture/${f.profilePicture}`)
+                          : require("../../images/noAvatar.png")
                       }
                       alt=""
                       className="ProfileImg"

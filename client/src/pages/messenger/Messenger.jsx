@@ -11,12 +11,11 @@ import Message from "../../components/message/Message";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import GifBoxIcon from "@mui/icons-material/GifBox";
-import TagFacesIcon from "@mui/icons-material/TagFaces";
 import SendIcon from "@mui/icons-material/Send";
 import ChatPersonInfo from "../../components/chatpersoninfo/ChatPersonInfo";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { io } from "socket.io-client";
 
 export default function Messenger() {
@@ -29,7 +28,7 @@ export default function Messenger() {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await axios.get(`/conversations/${user._id}`);
+        const res = await axiosInstance.get(`/conversations/${user._id}`);
         setConversations(res.data);
       } catch (err) {
         console.log(err);
@@ -41,7 +40,7 @@ export default function Messenger() {
   // showing in chatplace when choosing conversation, and need to fetch all messages
   const [currentChat, setCurrentChat] = useState(null);
   // 只是檢查該對話框是否有大頭照
-  const [pic, setPic] = useState(false);
+  const [pic, setPic] = useState("");
 
   useEffect(() => {
     setCurrentChat(conversations[0]);
@@ -50,19 +49,13 @@ export default function Messenger() {
   useEffect(() => {
     const other = currentChat?.members.filter((m) => m !== user._id);
     const getUser = async () => {
-      const res = await axios.get(`/users/?userID=${other}`);
+      const res = await axiosInstance.get(`/users/?userID=${other}`);
       if (res.data.profilePicture) {
-        setPic(true);
-      } else {
-        setPic(false);
+        setPic(res.data.profilePicture);
       }
     };
     getUser();
-  }, [currentChat]);
-
-  useEffect(() => {
-    console.log(pic);
-  }, [pic]);
+  }, [currentChat, user._id]);
 
   // when click the conversation, it will change currenChat, and get all this chat's messages
   const [messages, setMessages] = useState([]);
@@ -72,7 +65,7 @@ export default function Messenger() {
       try {
         // currentChat._id is conversation._id
         const res = currentChat
-          ? await axios.get(`/messages/${currentChat._id}`)
+          ? await axiosInstance.get(`/messages/${currentChat._id}`)
           : "";
         // get all messages (array) from currentChat, and put these messages into <Message/> with prop own to check whether senderID === user
         setMessages(res.data);
@@ -91,7 +84,7 @@ export default function Messenger() {
       const friendID = currentChat.members.find((c) => c !== user._id);
       const getUser = async () => {
         try {
-          const res = await axios.get(`/users/?userID=${friendID}`);
+          const res = await axiosInstance.get(`/users/?userID=${friendID}`);
           setFriend(res.data);
         } catch (err) {
           console.log(err);
@@ -121,7 +114,7 @@ export default function Messenger() {
       });
 
       try {
-        const res = await axios.post("/messages", message);
+        const res = await axiosInstance.post("/messages", message);
         // using ... will draw datas from array, so need to add [] back.
         // on every click only send one messagem so no need to use prev=>set(prev...)
         setMessages([...messages, res.data]);
@@ -240,8 +233,8 @@ export default function Messenger() {
                       <img
                         src={
                           friend?.profilePicture
-                            ? `http://localhost:6969/api/users/buffer/photos/${friend._id}`
-                            : require("../../assets/person/noAvatar.png")
+                            ? require(`../../images/profilePicture/${friend.profilePicture}`)
+                            : require("../../images/noAvatar.png")
                         }
                         alt=""
                       />

@@ -12,6 +12,8 @@ const postRoute = require("./routes/post");
 const conversationRoute = require("./routes/conversations");
 const messageRoute = require("./routes/messages");
 const cors = require("cors");
+const path = require("path");
+const multer = require("multer");
 
 mongoose.connect(process.env.MONGO_URL, () => {
   console.log("Altas has been connected.");
@@ -28,15 +30,81 @@ app.use(
 );
 app.use(morgan("common"));
 
+// 輸入server+/images/檔案即可透過server取得照片
+app.use("/images", express.static(path.join(__dirname, "client/src/images")));
+
+const storagePost = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "client/src/images/postPicture");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+const uploadPost = multer({ storage: storagePost });
+app.post("/uploadpost", uploadPost.single("file"), (req, res) => {
+  try {
+    return res.status(200).json("File uploded successfully");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+const storageProfile = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "client/src/images/profilePicture");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+const uploadProfile = multer({ storage: storageProfile });
+app.post("/uploadprofile", uploadProfile.single("file"), (req, res) => {
+  try {
+    return res.status(200).json("File uploded successfully");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+const storageCover = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "client/src/images/coverPicture");
+  },
+  filename: (req, file, cb) => {
+    cb(null, req.body.name);
+  },
+});
+const uploadCover = multer({ storage: storageCover });
+app.post("/uploadcover", uploadCover.single("file"), (req, res) => {
+  try {
+    return res.status(200).json("File uploded successfully");
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+// const upload = multer({
+//   limits: {
+//     // 限制容量500KB
+//     fileSize: 500000,
+//   },
+//   fileFilter(req, file, cb) {
+//     // 只接受三種圖片格式
+//     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+//       cb(new Error("Please upload an image"));
+//     }
+//     cb(null, true);
+//   },
+// });
+
+// 處理po文的圖片
+
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
-
-app.get("/", (req, res) => {
-  res.send("OK");
-});
 
 app.listen(6969, () => {
   console.log("Port 6969 is running.");

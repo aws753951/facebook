@@ -1,7 +1,4 @@
-import SchoolIcon from "@mui/icons-material/School";
-import LocationCityIcon from "@mui/icons-material/LocationCity";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,7 +9,7 @@ export default function Personinfo({ currentUser, setEditPerson }) {
   useEffect(() => {
     const getFriends = async () => {
       try {
-        const friendsList = await axios.get(
+        const friendsList = await axiosInstance.get(
           `/users/friends/${currentUser._id}`
         );
         setFriend(friendsList.data);
@@ -66,8 +63,8 @@ export default function Personinfo({ currentUser, setEditPerson }) {
                   <img
                     src={
                       u.profilePicture
-                        ? `http://localhost:6969/api/users/buffer/photos/${u._id}`
-                        : require(`../../assets/person/noAvatar.png`)
+                        ? require(`../../images/profilePicture/${u.profilePicture}`)
+                        : require("../../images/noAvatar.png")
                     }
                     alt=""
                     className="friendImg"

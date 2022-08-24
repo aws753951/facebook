@@ -1,44 +1,39 @@
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import like from "../../assets/like.png";
-import love from "../../assets/heart.png";
+import like from "../../images/like.png";
+import love from "../../images/heart.png";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import ReplyIcon from "@mui/icons-material/Reply";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Post({ post }) {
+  // 針對該貼文的poster
   const [currentUser, setCurrentUser] = useState({});
   const [likes, setLikes] = useState(post.goods.likes.length);
   const [loves, setLoves] = useState(post.goods.loves.length);
-  const [hates, setHates] = useState(post.goods.hates.length);
   // set isLiked for not always fetching counts from database.
   const [isLiked, setIsLiked] = useState(false);
-
   const { user } = useContext(AuthContext);
 
   const [cancel, setCancel] = useState(false);
-  const handleCancel = (e) => {
+  const handleCancel = () => {
     setCancel(false);
   };
 
   const handleLikes = async () => {
     try {
       // dont use e.target.id, better using props to fetch post._id
-      await axios.put(`/posts/${post._id}/likes`, {
+      await axiosInstance.put(`/posts/${post._id}/likes`, {
         userID: user._id,
       });
     } catch (err) {}
-    // only for this currentUser using, it will change a lot when refreshing
-    // if isLiked = true, likes -1
     setLikes(!isLiked ? likes + 1 : likes - 1);
-    // if false, turn true and the vice verse in "every post"
-    // it will coordinate with next useEffect to set the initial isLiked
     setIsLiked(!isLiked);
   };
 
@@ -49,8 +44,8 @@ export default function Post({ post }) {
 
   const deletePost = async () => {
     try {
-      await axios.delete(`/posts/${post._id}`, {
-        // https://stackoverflow.com/questions/51069552/axios-delete-request-with-body-and-headers
+      await axiosInstance.delete(`/posts/${post._id}`, {
+        // https://stackoverflow.com/questions/51069552/axiosInstance-delete-request-with-body-and-headers
         headers: {
           Authorization: "authorizationToken",
         },
@@ -63,21 +58,14 @@ export default function Post({ post }) {
   };
 
   useEffect(() => {
-    // if exist,then isLiked turn true
     setIsLiked(post.goods.likes.includes(user._id));
   }, [user._id, post.goods.likes]);
 
   useEffect(() => {
-    // ***
-    axios.get(`/users/?userID=${post.userID}`).then((u) => {
+    axiosInstance.get(`/users/?userID=${post.userID}`).then((u) => {
       setCurrentUser(u.data);
     });
   }, [post.userID]);
-
-  // useEffect(() => {
-  //   console.log(cancel);
-  //   console.log(xcancel);
-  // }, [cancel, xcancel]);
 
   return (
     <div className="post" onClick={handleCancel}>
@@ -88,8 +76,8 @@ export default function Post({ post }) {
               <img
                 src={
                   currentUser.profilePicture
-                    ? `http://localhost:6969/api/users/buffer/photos/${currentUser._id}`
-                    : require("../../assets/noAvatar.png")
+                    ? require(`../../images/profilePicture/${currentUser.profilePicture}`)
+                    : require("../../images/noAvatar.png")
                 }
                 alt=""
                 className="ProfileImg"
@@ -127,7 +115,7 @@ export default function Post({ post }) {
           <pre className="postText">{post?.desc}</pre>
           {post && post.img && (
             <img
-              src={`http://localhost:6969/api/posts/buffer/${post._id}`}
+              src={require(`../../images/postPicture/${post.img}`)}
               alt=""
               className="postImg"
             />

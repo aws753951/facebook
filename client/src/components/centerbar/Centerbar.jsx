@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useEffect, useState } from "react";
 import Post from "../sharepost/Post";
 import Sharepost from "../sharepost/Sharepost";
@@ -10,8 +10,8 @@ export default function Centerbar({ user, userID }) {
   useEffect(() => {
     const fetchPosts = async () => {
       const res = userID
-        ? await axios.get(`/posts/articals/personal/${userID}`)
-        : await axios.get(`/posts/articals/all/${user._id}`);
+        ? await axiosInstance.get(`/posts/articals/personal/${userID}`)
+        : await axiosInstance.get(`/posts/articals/all/${user._id}`);
       setPosts(
         res.data.sort((a, b) => {
           // cant use timestrip to sort, need change to Date

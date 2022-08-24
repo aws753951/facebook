@@ -3,7 +3,7 @@ import Personinfo from "../../components/personinfo/Personinfo";
 import Nav from "../../components/navbar/Nav";
 import Centerbar from "../../components/centerbar/Centerbar";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance, axiosUpload } from "../../config";
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -11,20 +11,20 @@ import ClearIcon from "@mui/icons-material/Clear";
 const FormData = global.FormData;
 
 export default function Profile() {
-  const { user, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState({});
   const [edit, setEdit] = useState(false);
-  const [editPerson, setEditPerson] = useState(false);
-  const [photo, setPhoto] = useState(null);
-  const [cover, setCover] = useState(null);
+  // 該photo 只能給新增圖片時使用，「一開始檢驗有無照片」得用user.profilePicture判別
+  const [photo, setPhoto] = useState("");
+  const [cover, setCover] = useState("");
   const [logout, setLogout] = useState(false);
 
   // using react Route path
   const userID = useParams().userID;
   useEffect(() => {
     const fetchUser = async () => {
-      // fetching form databases, no need to be the same logic of params
-      const res = await axios.get(`/users/?userID=${userID}`);
+      // 由於需要檢視不同人的頁面，才適用跟伺服器拿資料，至於更新圖片等，可透過state節省資源浪費
+      const res = await axiosInstance.get(`/users/?userID=${userID}`);
       setCurrentUser(res.data);
     };
     fetchUser();
@@ -35,11 +35,20 @@ export default function Profile() {
     if (photo) {
       const sendPhoto = async () => {
         let formData = new FormData();
-        formData.append("userID", user._id);
+        const fileName = Date.now() + photo.name;
+        formData.append("name", fileName);
         formData.append("file", photo);
+        // 更新user state(於AuthContext 內會自動檢查是否有更新state，並更新localstorage)
+        user.profilePicture = fileName;
+        localStorage.setItem("user", JSON.stringify(user));
         try {
-          await axios.post("/users/upload/photos", formData);
-          dispatch({ type: "ADDPHOTOS", payload: true });
+          // 送照片到伺服器
+          await axiosUpload.post("/uploadprofile", formData);
+          // 更新個人資料: 大頭照的名稱
+          await axiosInstance.put(`/users/${user._id}`, {
+            _id: user._id,
+            profilePicture: fileName,
+          });
           window.location.reload();
         } catch (err) {
           console.log(err);
@@ -50,10 +59,19 @@ export default function Profile() {
     if (cover) {
       const sendCover = async () => {
         let formData = new FormData();
-        formData.append("userID", user._id);
+        const fileName = Date.now() + cover.name;
+        formData.append("name", fileName);
         formData.append("file", cover);
+        user.coverPicture = fileName;
+        localStorage.setItem("user", JSON.stringify(user));
         try {
-          await axios.post("/users/upload/covers", formData);
+          // 送照片到伺服器
+          await axiosUpload.post("/uploadcover", formData);
+          // 更新個人資料: 大頭照的名稱
+          await axiosInstance.put(`/users/${user._id}`, {
+            _id: user._id,
+            coverPicture: fileName,
+          });
           window.location.reload();
         } catch (err) {
           console.log(err);
@@ -63,7 +81,9 @@ export default function Profile() {
     }
   };
 
-  // }
+  useEffect(() => {
+    console.log(photo);
+  }, [photo]);
 
   return (
     <>
@@ -107,15 +127,28 @@ export default function Profile() {
                   </div>
 
                   <div className="picture">
-                    <img
-                      className="imgUploading"
-                      src={
-                        photo
-                          ? URL.createObjectURL(photo)
-                          : `http://localhost:6969/api/users/buffer/photos/${currentUser._id}`
-                      }
-                      alt=""
-                    />
+                    {!user?.profilePicture && (
+                      <img
+                        className="imgUploading"
+                        src={
+                          photo
+                            ? URL.createObjectURL(photo)
+                            : require(`../../images/noAvatar.png`)
+                        }
+                        alt=""
+                      />
+                    )}
+                    {user?.profilePicture && (
+                      <img
+                        className="imgUploading"
+                        src={
+                          photo
+                            ? URL.createObjectURL(photo)
+                            : require(`../../images/profilePicture/${user?.profilePicture}`)
+                        }
+                        alt=""
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="editCover">
@@ -141,15 +174,28 @@ export default function Profile() {
                   </div>
 
                   <div className="picture">
-                    <img
-                      className="imgUploading"
-                      src={
-                        cover
-                          ? URL.createObjectURL(cover)
-                          : `http://localhost:6969/api/users/buffer/covers/${currentUser._id}`
-                      }
-                      alt=""
-                    />
+                    {!user?.coverPicture && (
+                      <img
+                        className="imgUploading"
+                        src={
+                          cover
+                            ? URL.createObjectURL(cover)
+                            : require(`../../images/defaultCover.png`)
+                        }
+                        alt=""
+                      />
+                    )}
+                    {user?.coverPicture && (
+                      <img
+                        className="imgUploading"
+                        src={
+                          cover
+                            ? URL.createObjectURL(cover)
+                            : require(`../../images/coverPicture/${user?.coverPicture}`)
+                        }
+                        alt=""
+                      />
+                    )}
                   </div>
                 </div>
                 <div className="button" onClick={handleSubmit}>

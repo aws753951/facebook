@@ -2,55 +2,13 @@ const router = require("express").Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
 
-const multer = require("multer");
-const upload = multer({
-  limits: {
-    // 限制容量500KB
-    fileSize: 500000,
-  },
-  fileFilter(req, file, cb) {
-    // 只接受三種圖片格式
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      cb(new Error("Please upload an image"));
-    }
-    cb(null, true);
-  },
-});
-
-// post an article with img
-router.post("/upload", upload.single("file"), async (req, res) => {
+// post an article
+router.post("/", async (req, res) => {
   // check before querying*******************************
-  let { userID, desc } = req.body;
-  let newPost;
-  if (req.file) {
-    let { originalname, buffer } = req.file;
-    newPost = new Post({
-      userID,
-      desc,
-      img: originalname,
-      file: buffer,
-    });
-  } else {
-    newPost = new Post({
-      userID,
-      desc,
-    });
-  }
+  let newPost = new Post(req.body);
   try {
-    await newPost.save();
-    res.status(200).json("post built.");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// get img from every post
-router.get("/buffer/:_id", async (req, res) => {
-  try {
-    const post = await Post.findById(req.params._id);
-    res.set("Content-Type", "image/jpeg");
-    // only send can cipher img
-    res.status(200).send(post.file);
+    const savedPost = await newPost.save();
+    res.status(200).json(savedPost);
   } catch (err) {
     res.status(500).json(err);
   }

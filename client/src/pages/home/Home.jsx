@@ -21,7 +21,7 @@ export default function Home() {
     socket?.on("getUsers", (users) => {
       setOnlineUser(users.map((user) => user.userID));
     });
-  }, [user.id, socket]);
+  }, [user._id, socket]);
 
   return (
     <>

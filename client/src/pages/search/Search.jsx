@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useState } from "react";
 
 export default function Search() {
@@ -14,7 +14,9 @@ export default function Search() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await axios.get(`/users/search/?username=${username}`);
+      const res = await axiosInstance.get(
+        `/users/search/?username=${username}`
+      );
       setFoundUsers(res.data);
     };
     fetchUser();
@@ -37,8 +39,8 @@ export default function Search() {
                   <img
                     src={
                       foundUser.profilePicture
-                        ? `http://localhost:6969/api/users/buffer/photos/${foundUser._id}`
-                        : require("../../assets/person/noAvatar.png")
+                        ? require(`../../images/profilePicture/${foundUser.profilePicture}`)
+                        : require("../../images/noAvatar.png")
                     }
                     alt=""
                   />
@@ -72,9 +74,12 @@ export default function Search() {
                     !user.addfriends.includes(foundUser._id) && (
                       <button
                         onClick={async () => {
-                          await axios.put(`/users/${foundUser._id}/addFriend`, {
-                            _id: user._id,
-                          });
+                          await axiosInstance.put(
+                            `/users/${foundUser._id}/addFriend`,
+                            {
+                              _id: user._id,
+                            }
+                          );
                           dispatch({
                             type: "ADDFRIENDS",
                             payload: foundUser._id,
@@ -90,7 +95,7 @@ export default function Search() {
                         onClick={() => {
                           const addConversation = async () => {
                             try {
-                              await axios.post("/conversations", {
+                              await axiosInstance.post("/conversations", {
                                 senderID: user._id,
                                 receiverID: foundUser._id,
                               });

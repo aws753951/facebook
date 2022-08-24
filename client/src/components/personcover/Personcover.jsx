@@ -5,7 +5,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import MessageIcon from "@mui/icons-material/Message";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import { useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 import { useNavigate } from "react-router-dom";
 
 export default function Personcover({ currentUser, setEdit }) {
@@ -22,12 +22,12 @@ export default function Personcover({ currentUser, setEdit }) {
   const handleAddFriend = async () => {
     try {
       if (added) {
-        await axios.put(`/users/${currentUser._id}/addFriend`, {
+        await axiosInstance.put(`/users/${currentUser._id}/addFriend`, {
           _id: user._id,
         });
         dispatch({ type: "UNFRIENDS", payload: currentUser._id });
       } else {
-        await axios.put(`/users/${currentUser._id}/addFriend`, {
+        await axiosInstance.put(`/users/${currentUser._id}/addFriend`, {
           _id: user._id,
         });
         dispatch({ type: "ADDFRIENDS", payload: currentUser._id });
@@ -44,9 +44,9 @@ export default function Personcover({ currentUser, setEdit }) {
         <div className="profileTop">
           <img
             src={
-              currentUser.profilePicture
-                ? `http://localhost:6969/api/users/buffer/covers/${currentUser._id}`
-                : require("../../assets/defaultCover.png")
+              currentUser?.coverPicture
+                ? require(`../../images/coverPicture/${currentUser?.coverPicture}`)
+                : require(`../../images/defaultCover.png`)
             }
             alt=""
             className="profileCoverImg"
@@ -56,9 +56,9 @@ export default function Personcover({ currentUser, setEdit }) {
               <div className="profileMiddleTopLeft">
                 <img
                   src={
-                    currentUser.profilePicture
-                      ? `http://localhost:6969/api/users/buffer/photos/${currentUser._id}`
-                      : require("../../assets/noAvatar.png")
+                    currentUser?.profilePicture
+                      ? require(`../../images/profilePicture/${currentUser?.profilePicture}`)
+                      : require("../../images/noAvatar.png")
                   }
                   alt=""
                   className="profileUserImg"
@@ -114,7 +114,7 @@ export default function Personcover({ currentUser, setEdit }) {
                       const addConversation = async () => {
                         console.log(user._id);
                         try {
-                          await axios.post("/conversations", {
+                          await axiosInstance.post("/conversations", {
                             senderID: user._id,
                             receiverID: currentUser._id,
                           });

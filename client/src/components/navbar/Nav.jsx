@@ -9,7 +9,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useState } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -96,8 +96,8 @@ export default function Nav({ logout, setLogout }) {
             <img
               src={
                 user.profilePicture
-                  ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
-                  : require("../../assets/noAvatar.png")
+                  ? require(`../../images/profilePicture/${user.profilePicture}`)
+                  : require("../../images/noAvatar.png")
               }
               alt=""
               className="profile"
@@ -115,8 +115,8 @@ export default function Nav({ logout, setLogout }) {
                       <img
                         src={
                           user.profilePicture
-                            ? `http://localhost:6969/api/users/buffer/photos/${user._id}`
-                            : require("../../assets/noAvatar.png")
+                            ? require(`../../images/profilePicture/${user.profilePicture}`)
+                            : require("../../images/noAvatar.png")
                         }
                         alt=""
                         className="profile"

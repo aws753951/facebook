@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../config";
 
 export default function Conversation({ conversation, user, messages }) {
   const [friend, setFriend] = useState(null);
@@ -9,7 +9,7 @@ export default function Conversation({ conversation, user, messages }) {
     const friendID = conversation.members.find((c) => c !== user._id);
     const getUser = async () => {
       try {
-        const res = await axios.get(`/users/?userID=${friendID}`);
+        const res = await axiosInstance.get(`/users/?userID=${friendID}`);
         setFriend(res.data);
       } catch (err) {
         console.log(err);
@@ -18,7 +18,9 @@ export default function Conversation({ conversation, user, messages }) {
     getUser();
     const getMsg = async () => {
       try {
-        const res = await axios.get(`/messages/lastmsg/${conversation._id}`);
+        const res = await axiosInstance.get(
+          `/messages/lastmsg/${conversation._id}`
+        );
         setLastmsg(res.data.text);
       } catch (err) {
         console.log(err);
@@ -32,8 +34,8 @@ export default function Conversation({ conversation, user, messages }) {
       <img
         src={
           friend?.profilePicture
-            ? `http://localhost:6969/api/users/buffer/photos/${friend._id}`
-            : require("../../assets/person/noAvatar.png")
+            ? require(`../../images/profilePicture/${friend.profilePicture}`)
+            : require("../../images/noAvatar.png")
         }
         alt=""
         className="conversationImg"

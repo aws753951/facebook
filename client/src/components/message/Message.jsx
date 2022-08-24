@@ -8,8 +8,8 @@ export default function Message({ message, own, pic }) {
         <img
           src={
             pic
-              ? `http://localhost:6969/api/users/buffer/photos/${message?.senderID}`
-              : require("../../assets/person/noAvatar.png")
+              ? require(`../../images/profilePicture/${pic}`)
+              : require("../../images/noAvatar.png")
           }
           alt=""
           className="messageImg"
