@@ -12,7 +12,7 @@ export default function Personinfo({ currentUser }) {
         const friendsList = await axiosInstance.get(
           `/users/friends/${currentUser._id}`
         );
-        setFriend(friendsList.data);
+        setFriend(friendsList?.data);
       } catch (err) {
         console.log(err);
       }

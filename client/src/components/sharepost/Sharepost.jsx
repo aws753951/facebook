@@ -34,6 +34,13 @@ export default function Sharepost() {
         }
       };
       sendPhoto();
+    } else if (desc.current.value) {
+      try {
+        await axiosInstance.post(`/posts/`, newPost);
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
