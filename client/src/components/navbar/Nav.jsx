@@ -96,7 +96,7 @@ export default function Nav({ logout, setLogout }) {
             <img
               src={
                 user.profilePicture
-                  ? require(`../../images/profilePicture/${user.profilePicture}`)
+                  ? user.profilePicture
                   : require("../../images/noAvatar.png")
               }
               alt=""
@@ -115,7 +115,7 @@ export default function Nav({ logout, setLogout }) {
                       <img
                         src={
                           user.profilePicture
-                            ? require(`../../images/profilePicture/${user.profilePicture}`)
+                            ? user.profilePicture
                             : require("../../images/noAvatar.png")
                         }
                         alt=""

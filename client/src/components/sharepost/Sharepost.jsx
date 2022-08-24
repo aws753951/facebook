@@ -13,7 +13,6 @@ export default function Sharepost() {
   const { user } = useContext(AuthContext);
   const desc = useRef();
   const [file, setFile] = useState(null);
-
   // PO文並檢查是否有檔案或內容，擇一即可
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,25 +20,34 @@ export default function Sharepost() {
       userID: user._id,
       desc: desc.current.value,
     };
-    // check post has sth
     if (file) {
-      const data = new FormData();
-      const fileName = Date.now() + file.name;
-      data.append("name", fileName);
-      data.append("file", file);
-      newPost.img = fileName;
-      try {
-        await axiosUpload.post("/uploadpost", data);
-      } catch (err) {}
+      const sendPhoto = async () => {
+        let formData = new FormData();
+        formData.append("file", file);
+        try {
+          const res = await axiosUpload.post(`/upload`, formData);
+          newPost.img = res.data;
+          await axiosInstance.post(`/posts/`, newPost);
+          window.location.reload();
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      sendPhoto();
     }
-    // 就算只有file，也要記錄其img的名稱
-    try {
-      await axiosInstance.post("/posts", newPost);
-    } catch (err) {
-      console.log(err);
-    }
-    window.location.reload();
   };
+
+  // check post has sth
+  // if (file) {
+  //   const data = new FormData();
+  //   const fileName = Date.now() + file.name;
+  //   data.append("name", fileName);
+  //   data.append("file", file);
+  //   newPost.img = fileName;
+  //   try {
+  //     await axiosUpload.post("/uploadpost", data);
+  //   } catch (err) {}
+  // }
 
   return (
     <div className="sharepost">
@@ -49,7 +57,7 @@ export default function Sharepost() {
             <img
               src={
                 user.profilePicture
-                  ? require(`../../images/profilePicture/${user.profilePicture}`)
+                  ? user.profilePicture
                   : require("../../images/noAvatar.png")
               }
               alt=""

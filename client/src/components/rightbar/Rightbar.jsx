@@ -75,7 +75,7 @@ export default function Rightbar({ onlineUsers }) {
                     <img
                       src={
                         f.profilePicture
-                          ? require(`../../images/profilePicture/${f.profilePicture}`)
+                          ? f.profilePicture
                           : require("../../images/noAvatar.png")
                       }
                       alt=""

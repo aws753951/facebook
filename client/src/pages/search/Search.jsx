@@ -39,7 +39,7 @@ export default function Search() {
                   <img
                     src={
                       foundUser.profilePicture
-                        ? require(`../../images/profilePicture/${foundUser.profilePicture}`)
+                        ? foundUser.profilePicture
                         : require("../../images/noAvatar.png")
                     }
                     alt=""

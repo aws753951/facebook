@@ -49,9 +49,13 @@ export default function Messenger() {
   useEffect(() => {
     const other = currentChat?.members.filter((m) => m !== user._id);
     const getUser = async () => {
-      const res = await axiosInstance.get(`/users/?userID=${other}`);
-      if (res.data.profilePicture) {
-        setPic(res.data.profilePicture);
+      try {
+        const res = await axiosInstance.get(`/users/?userID=${other}`);
+        if (res.data.profilePicture) {
+          setPic(res.data.profilePicture);
+        }
+      } catch (err) {
+        console.log(err);
       }
     };
     getUser();
@@ -233,7 +237,7 @@ export default function Messenger() {
                       <img
                         src={
                           friend?.profilePicture
-                            ? require(`../../images/profilePicture/${friend.profilePicture}`)
+                            ? friend?.profilePicture
                             : require("../../images/noAvatar.png")
                         }
                         alt=""

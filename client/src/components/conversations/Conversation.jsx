@@ -21,7 +21,7 @@ export default function Conversation({ conversation, user, messages }) {
         const res = await axiosInstance.get(
           `/messages/lastmsg/${conversation._id}`
         );
-        setLastmsg(res.data.text);
+        setLastmsg(res.data?.text);
       } catch (err) {
         console.log(err);
       }
@@ -34,7 +34,7 @@ export default function Conversation({ conversation, user, messages }) {
       <img
         src={
           friend?.profilePicture
-            ? require(`../../images/profilePicture/${friend.profilePicture}`)
+            ? friend?.profilePicture
             : require("../../images/noAvatar.png")
         }
         alt=""

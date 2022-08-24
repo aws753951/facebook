@@ -6,11 +6,7 @@ export default function Message({ message, own, pic }) {
     <div className={own ? "message own" : "message"}>
       <div className="messageWrapper">
         <img
-          src={
-            pic
-              ? require(`../../images/profilePicture/${pic}`)
-              : require("../../images/noAvatar.png")
-          }
+          src={pic ? pic : require("../../images/noAvatar.png")}
           alt=""
           className="messageImg"
         />

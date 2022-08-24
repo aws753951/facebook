@@ -10,7 +10,7 @@ export default function ChatPersonInfo({ friend, onlineUsers }) {
           <img
             src={
               friend?.profilePicture
-                ? require(`../../images/profilePicture/${friend.profilePicture}`)
+                ? friend?.profilePicture
                 : require("../../images/noAvatar.png")
             }
             alt=""

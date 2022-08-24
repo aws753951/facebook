@@ -45,7 +45,7 @@ export default function Personcover({ currentUser, setEdit }) {
           <img
             src={
               currentUser?.coverPicture
-                ? require(`../../images/coverPicture/${currentUser?.coverPicture}`)
+                ? currentUser?.coverPicture
                 : require(`../../images/defaultCover.png`)
             }
             alt=""
@@ -57,7 +57,7 @@ export default function Personcover({ currentUser, setEdit }) {
                 <img
                   src={
                     currentUser?.profilePicture
-                      ? require(`../../images/profilePicture/${currentUser?.profilePicture}`)
+                      ? currentUser?.profilePicture
                       : require("../../images/noAvatar.png")
                   }
                   alt=""

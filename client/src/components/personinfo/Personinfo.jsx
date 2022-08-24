@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Personinfo({ currentUser, setEditPerson }) {
+export default function Personinfo({ currentUser }) {
   const [friend, setFriend] = useState([]);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function Personinfo({ currentUser, setEditPerson }) {
                   <img
                     src={
                       u.profilePicture
-                        ? require(`../../images/profilePicture/${u.profilePicture}`)
+                        ? u.profilePicture
                         : require("../../images/noAvatar.png")
                     }
                     alt=""

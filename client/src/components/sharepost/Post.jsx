@@ -76,7 +76,7 @@ export default function Post({ post }) {
               <img
                 src={
                   currentUser.profilePicture
-                    ? require(`../../images/profilePicture/${currentUser.profilePicture}`)
+                    ? currentUser.profilePicture
                     : require("../../images/noAvatar.png")
                 }
                 alt=""
@@ -114,11 +114,7 @@ export default function Post({ post }) {
         <div className="postCenter">
           <pre className="postText">{post?.desc}</pre>
           {post && post.img && (
-            <img
-              src={require(`../../images/postPicture/${post.img}`)}
-              alt=""
-              className="postImg"
-            />
+            <img src={post.img} alt="" className="postImg" />
           )}
         </div>
         <div className="postBottom">

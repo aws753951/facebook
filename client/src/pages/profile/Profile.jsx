@@ -35,19 +35,15 @@ export default function Profile() {
     if (photo) {
       const sendPhoto = async () => {
         let formData = new FormData();
-        const fileName = Date.now() + photo.name;
-        formData.append("name", fileName);
         formData.append("file", photo);
-        // 更新user state(於AuthContext 內會自動檢查是否有更新state，並更新localstorage)
-        user.profilePicture = fileName;
-        localStorage.setItem("user", JSON.stringify(user));
         try {
-          // 送照片到伺服器
-          await axiosUpload.post("/uploadprofile", formData);
-          // 更新個人資料: 大頭照的名稱
+          const res = await axiosUpload.post(`/upload`, formData);
+          // 更新state，並存入localstorage
+          user.profilePicture = res.data;
+          localStorage.setItem("user", JSON.stringify(user));
           await axiosInstance.put(`/users/${user._id}`, {
             _id: user._id,
-            profilePicture: fileName,
+            profilePicture: res.data,
           });
           window.location.reload();
         } catch (err) {
@@ -59,18 +55,15 @@ export default function Profile() {
     if (cover) {
       const sendCover = async () => {
         let formData = new FormData();
-        const fileName = Date.now() + cover.name;
-        formData.append("name", fileName);
         formData.append("file", cover);
-        user.coverPicture = fileName;
-        localStorage.setItem("user", JSON.stringify(user));
         try {
-          // 送照片到伺服器
-          await axiosUpload.post("/uploadcover", formData);
-          // 更新個人資料: 大頭照的名稱
+          const res = await axiosUpload.post(`/upload`, formData);
+          // 更新state，並存入localstorage
+          user.coverPicture = res.data;
+          localStorage.setItem("user", JSON.stringify(user));
           await axiosInstance.put(`/users/${user._id}`, {
             _id: user._id,
-            coverPicture: fileName,
+            coverPicture: res.data,
           });
           window.location.reload();
         } catch (err) {
@@ -80,10 +73,6 @@ export default function Profile() {
       sendCover();
     }
   };
-
-  useEffect(() => {
-    console.log(photo);
-  }, [photo]);
 
   return (
     <>
@@ -144,7 +133,7 @@ export default function Profile() {
                         src={
                           photo
                             ? URL.createObjectURL(photo)
-                            : require(`../../images/profilePicture/${user?.profilePicture}`)
+                            : user?.profilePicture
                         }
                         alt=""
                       />
@@ -189,9 +178,7 @@ export default function Profile() {
                       <img
                         className="imgUploading"
                         src={
-                          cover
-                            ? URL.createObjectURL(cover)
-                            : require(`../../images/coverPicture/${user?.coverPicture}`)
+                          cover ? URL.createObjectURL(cover) : user.coverPicture
                         }
                         alt=""
                       />

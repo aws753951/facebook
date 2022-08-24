@@ -14,6 +14,7 @@ const messageRoute = require("./routes/messages");
 const cors = require("cors");
 const path = require("path");
 const multer = require("multer");
+const { ImgurClient } = require("imgur");
 
 mongoose.connect(process.env.MONGO_URL, () => {
   console.log("Altas has been connected.");
@@ -31,58 +32,58 @@ app.use(
 app.use(morgan("common"));
 
 // 輸入server+/images/檔案即可透過server取得照片
-app.use("/images", express.static(path.join(__dirname, "client/src/images")));
+// app.use("/images", express.static(path.join(__dirname, "client/src/images")));
 
-const storagePost = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "client/src/images/postPicture");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
-});
-const uploadPost = multer({ storage: storagePost });
-app.post("/uploadpost", uploadPost.single("file"), (req, res) => {
-  try {
-    return res.status(200).json("File uploded successfully");
-  } catch (error) {
-    console.error(error);
-  }
-});
+// const storagePost = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "client/src/images/postPicture");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, req.body.name);
+//   },
+// });
+// const uploadPost = multer({ storage: storagePost });
+// app.post("/uploadpost", uploadPost.single("file"), (req, res) => {
+//   try {
+//     return res.status(200).json("File uploded successfully");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
-const storageProfile = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "client/src/images/profilePicture");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
-});
-const uploadProfile = multer({ storage: storageProfile });
-app.post("/uploadprofile", uploadProfile.single("file"), (req, res) => {
-  try {
-    return res.status(200).json("File uploded successfully");
-  } catch (error) {
-    console.error(error);
-  }
-});
+// const storageProfile = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "client/src/images/profilePicture");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, req.body.name);
+//   },
+// });
+// const uploadProfile = multer({ storage: storageProfile });
+// app.post("/uploadprofile", uploadProfile.single("file"), (req, res) => {
+//   try {
+//     return res.status(200).json("File uploded successfully");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
-const storageCover = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "client/src/images/coverPicture");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
-});
-const uploadCover = multer({ storage: storageCover });
-app.post("/uploadcover", uploadCover.single("file"), (req, res) => {
-  try {
-    return res.status(200).json("File uploded successfully");
-  } catch (error) {
-    console.error(error);
-  }
-});
+// const storageCover = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "client/src/images/coverPicture");
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, req.body.name);
+//   },
+// });
+// const uploadCover = multer({ storage: storageCover });
+// app.post("/uploadcover", uploadCover.single("file"), (req, res) => {
+//   try {
+//     return res.status(200).json("File uploded successfully");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
 // const upload = multer({
 //   limits: {
@@ -99,6 +100,24 @@ app.post("/uploadcover", uploadCover.single("file"), (req, res) => {
 // });
 
 // 處理po文的圖片
+const uppp = multer();
+app.post("/upload", uppp.single("file"), async (req, res) => {
+  try {
+    const client = new ImgurClient({
+      clientId: process.env.IMGUR_CLIENTID,
+      clientSecret: process.env.IMGUR_CLIENT_SECRET,
+      refreshToken: process.env.IMGUR_REFRESH_TOKEN,
+    });
+    const response = await client.upload({
+      image: req.file.buffer.toString("base64"),
+      type: "base64",
+      album: process.env.IMGUR_ALBUM_ID,
+    });
+    res.send(response.data.link);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
