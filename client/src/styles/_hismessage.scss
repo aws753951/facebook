@@ -1,0 +1,33 @@
+.hismessage {
+  display: flex;
+  margin-top: 10px;
+  .left {
+    .profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+  .right {
+    .msgContainer {
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      background-color: rgb(238, 237, 237);
+      padding: 10px;
+      border-radius: 15px;
+      .name {
+        cursor: pointer;
+        font-weight: 800;
+      }
+    }
+    .time {
+      display: flex;
+      position: relative;
+      left: 15px;
+      opacity: 0.6;
+    }
+  }
+}

@@ -11,6 +11,7 @@ export default function Search() {
   const { user, dispatch } = useContext(AuthContext);
   const username = useParams().username;
   const [foundUsers, setFoundUsers] = useState([]);
+  const [logout, setLogout] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -24,8 +25,13 @@ export default function Search() {
 
   return (
     <>
-      <Nav />
-      <div className="Search">
+      <Nav logout={logout} setLogout={setLogout} />
+      <div
+        className="Search"
+        onClick={() => {
+          setLogout(false);
+        }}
+      >
         <div className="searchWrapper">
           {foundUsers.length === 0 && (
             <>
@@ -48,7 +54,7 @@ export default function Search() {
                 <div className="info">
                   <div>
                     <Link
-                      to="/messenger"
+                      to={`/profile/${foundUser._id}`}
                       style={{
                         textDecoration: "none",
                         color: "black",

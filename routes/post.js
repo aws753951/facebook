@@ -14,21 +14,32 @@ router.post("/", async (req, res) => {
   }
 });
 
-// update
+// leave msg
 router.put("/:_id", async (req, res) => {
   // check before querying*******************************
 
   try {
     const post = await Post.findById(req.params._id);
-    if (post.userID === req.body.userID) {
-      // update and no need to query again
-      await post.updateOne({ $set: req.body });
-      res.status(200).json("the post has been updated.");
-    } else {
-      res.status(403).json("you can only update your post.");
-    }
+    // update and no need to query again
+    let { userID, text, date } = req.body;
+    await post.updateOne({
+      $push: {
+        msg: { userID, text, date },
+      },
+    });
+    res.status(200).json("the post has been updated.");
   } catch (err) {
     res.status(500).json(err);
+  }
+});
+
+// get msg
+router.get("/:_id", async (req, res) => {
+  try {
+    const post = await Post.findById(req.params._id);
+    res.status(200).json(post.msg);
+  } catch (err) {
+    console.log(err);
   }
 });
 

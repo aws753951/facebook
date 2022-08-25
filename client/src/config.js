@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://fakebook6969.herokuapp.com/api",
+  baseURL: "http://localhost:6969/api",
 });
 
 export const axiosUpload = axios.create({
-  baseURL: "https://fakebook6969.herokuapp.com",
+  baseURL: "http://localhost:6969",
 });

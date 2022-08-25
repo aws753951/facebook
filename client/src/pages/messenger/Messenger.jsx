@@ -121,6 +121,7 @@ export default function Messenger() {
         const res = await axiosInstance.post("/messages", message);
         // using ... will draw datas from array, so need to add [] back.
         // on every click only send one messagem so no need to use prev=>set(prev...)
+        // *****************************************************************************************
         setMessages([...messages, res.data]);
         setSendMessage("");
       } catch (err) {
@@ -145,7 +146,7 @@ export default function Messenger() {
   const [onlineUsers, setOnlineUser] = useState([]);
 
   useEffect(() => {
-    setSocket(io("ws://localhost:6970"));
+    setSocket(io("https://fakebookformarc.herokuapp.com/"));
   }, []);
 
   useEffect(() => {

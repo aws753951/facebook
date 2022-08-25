@@ -28,6 +28,10 @@ const postschema = new mongoose.Schema(
         default: [],
       },
     },
+    msg: {
+      type: Array,
+      default: [],
+    },
   },
   //   doc time, need change
   { timestamps: true }

@@ -669,12 +669,10 @@
 }
 
 .post .postWrapper .postTop .postTopRight .postMoreIcon {
-  right: -6px;
+  padding: 10px;
 }
 
 .post .postWrapper .postTop .postTopRight .postMoreIcon:hover {
-  position: relative;
-  padding: 6px;
   background-color: #ebebeb;
   border-radius: 50%;
 }
@@ -742,6 +740,7 @@
   width: 100%;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  margin-bottom: 5px;
 }
 
 .post .postWrapper .postBottom .postBottomComments .postBottomComment {
@@ -769,6 +768,94 @@
   color: gray;
   font-weight: 800;
   margin-left: 3px;
+}
+
+.post .postWrapper .postBottom .postBottomDetail {
+  min-height: 0px;
+}
+
+.post .postWrapper .postBottom .postBottomDetail .message {
+  margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.post .postWrapper .postBottom .postBottomDetail .message .left .profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.post .postWrapper .postBottom .postBottomDetail .message .right {
+  margin-left: 10px;
+  height: 40px;
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #eeeded;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-radius: 20px;
+}
+
+.post .postWrapper .postBottom .postBottomDetail .message .right input {
+  width: 95%;
+  font-size: 20px;
+  background-color: #eeeded;
+  border: none;
+  outline: none;
+}
+
+.hismessage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10px;
+}
+
+.hismessage .left .profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+}
+
+.hismessage .right .msgContainer {
+  margin-left: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #eeeded;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.hismessage .right .msgContainer .name {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.hismessage .right .time {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  left: 15px;
+  opacity: 0.6;
 }
 
 .rightbarContainer {

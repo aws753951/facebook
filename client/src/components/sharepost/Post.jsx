@@ -11,8 +11,9 @@ import { axiosInstance } from "../../config";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import Hismessage from "../hismessage/Hismessage";
 
-export default function Post({ post }) {
+export default function Post({ post, cancel, setCancel }) {
   // 針對該貼文的poster
   const [currentUser, setCurrentUser] = useState({});
   const [likes, setLikes] = useState(post.goods.likes.length);
@@ -20,11 +21,16 @@ export default function Post({ post }) {
   // set isLiked for not always fetching counts from database.
   const [isLiked, setIsLiked] = useState(false);
   const { user } = useContext(AuthContext);
+  const [xcancel, setXcancel] = useState(false);
+  const [leavemsg, setLeavemsg] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [listmsg, setListmsg] = useState([]);
 
-  const [cancel, setCancel] = useState(false);
-  const handleCancel = () => {
-    setCancel(false);
-  };
+  useEffect(() => {
+    if (!cancel) {
+      setXcancel(false);
+    }
+  }, [cancel]);
 
   const handleLikes = async () => {
     try {
@@ -35,11 +41,6 @@ export default function Post({ post }) {
     } catch (err) {}
     setLikes(!isLiked ? likes + 1 : likes - 1);
     setIsLiked(!isLiked);
-  };
-
-  const handlePost = (e) => {
-    e.stopPropagation();
-    setCancel(true);
   };
 
   const deletePost = async () => {
@@ -67,8 +68,62 @@ export default function Post({ post }) {
     });
   }, [post.userID]);
 
+  // 當點開留言後，向後台拿資料並傳到STATE裡
+  // 針對每則留言進行資料取得:姓名，大頭照那些
+  useEffect(() => {
+    if (leavemsg) {
+      const fetchMsg = async () => {
+        const res = await axiosInstance.get(`/posts/${post._id}`);
+        // 回傳每一個留言與userID
+        setListmsg(res.data);
+        // res.data.forEach(async (item) => {
+        //   console.log(item.text);
+        //   const res = await axiosInstance.get(`users/?userID=${item.userID}`);
+        //   let { _id, username, profilePicture } = res.data;
+        //   // *****************************************************************************************
+        //   setListmsg((listmsg) => [
+        //     ...listmsg,
+        //     {
+        //       userID: _id,
+        //       username,
+        //       profilePicture,
+        //       text: item.text,
+        //     },
+        //   ]);
+        // });
+      };
+      fetchMsg();
+    }
+  }, [leavemsg]);
+
+  // 傳訊息: 到後台以及要更新STATE
+  const leaveMsg = async (e) => {
+    e.preventDefault();
+    await axiosInstance.put(`/posts/${post._id}`, {
+      userID: user._id,
+      text: msg,
+      date: Date.now(),
+    });
+    // 更新state
+    setListmsg([
+      ...listmsg,
+      {
+        userID: user._id,
+        text: msg,
+        date: Date.now(),
+      },
+    ]);
+    setMsg("");
+  };
+
   return (
-    <div className="post" onClick={handleCancel}>
+    <div
+      className="post"
+      onClick={() => {
+        setCancel(false);
+        setXcancel(false);
+      }}
+    >
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -101,9 +156,13 @@ export default function Post({ post }) {
           <div className="postTopRight">
             <MoreHorizOutlinedIcon
               className="postMoreIcon"
-              onClick={handlePost}
+              onClick={(e) => {
+                e.stopPropagation();
+                setXcancel(true);
+                setCancel(true);
+              }}
             />
-            {cancel && (
+            {xcancel && (
               <div className="moreContent" onClick={deletePost}>
                 <DeleteForeverIcon />
                 <span>刪除</span>
@@ -127,8 +186,11 @@ export default function Post({ post }) {
               </span>
             </div>
             <div className="postBottomInfosRight">
-              {/* <span className="messageCount">{item.comment}則留言</span> */}
-              <span className="shareCount">17則分享</span>
+              {post?.msg && post.msg.length !== 0 && (
+                <span className="messageCount">{post.msg.length}則留言</span>
+              )}
+
+              {/* <span className="shareCount">17則分享</span> */}
             </div>
           </div>
           <hr className="postBottomHr" />
@@ -137,7 +199,12 @@ export default function Post({ post }) {
               <ThumbUpOffAltIcon className="postBottomCommentIcon" />
               <span className="postBottomCommentAct">讚</span>
             </div>
-            <div className="postBottomComment">
+            <div
+              className="postBottomComment"
+              onClick={() => {
+                setLeavemsg(true);
+              }}
+            >
               <ChatBubbleOutlineIcon className="postBottomCommentIcon" />
               <span className="postBottomCommentAct">留言</span>
             </div>
@@ -146,7 +213,41 @@ export default function Post({ post }) {
               <span className="postBottomCommentAct">分享</span>
             </div>
           </div>
-          <div className="postBottomDetail"></div>
+          {/* ************************************************************************* */}
+          <div className="postBottomDetail">
+            {/* ******************* */}
+            {leavemsg && (
+              <>
+                <hr />
+                {listmsg &&
+                  listmsg.map((eachMsg) => <Hismessage eachMsg={eachMsg} />)}
+
+                <div className="message">
+                  <div className="left">
+                    <img
+                      src={
+                        user.profilePicture
+                          ? user.profilePicture
+                          : require("../../images/noAvatar.png")
+                      }
+                      alt=""
+                      className="profile"
+                    />
+                  </div>
+                  <form className="right" onSubmit={leaveMsg}>
+                    <input
+                      type="text"
+                      placeholder="留言......."
+                      onChange={(e) => {
+                        setMsg(e.target.value);
+                      }}
+                      value={msg}
+                    />
+                  </form>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

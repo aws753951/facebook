@@ -18,6 +18,7 @@ export default function Profile() {
   const [photo, setPhoto] = useState("");
   const [cover, setCover] = useState("");
   const [logout, setLogout] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
   // using react Route path
   const userID = useParams().userID;
@@ -77,7 +78,13 @@ export default function Profile() {
   return (
     <>
       <Nav logout={logout} setLogout={setLogout} />
-      <div className="profile">
+      <div
+        className="profile"
+        onClick={(e) => {
+          setCancel(false);
+          e.stopPropagation();
+        }}
+      >
         {edit && (
           <>
             <div className="editPage">
@@ -203,7 +210,12 @@ export default function Profile() {
               <Personinfo currentUser={currentUser} />
             </div>
             <div className="profileBottomRight">
-              <Centerbar user={user} userID={userID} />
+              <Centerbar
+                user={user}
+                userID={userID}
+                cancel={cancel}
+                setCancel={setCancel}
+              />
             </div>
           </div>
         </div>

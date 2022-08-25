@@ -62,11 +62,8 @@
           }
         }
         .postMoreIcon {
-          right: -6px;
+          padding: 10px;
           &:hover {
-            position: relative;
-
-            padding: 6px;
             background-color: rgb(235, 235, 235);
             border-radius: 50%;
           }
@@ -119,6 +116,7 @@
         align-items: center;
         width: 100%;
         justify-content: space-around;
+        margin-bottom: 5px;
         .postBottomComment {
           padding: 3px 80px;
           border-radius: 10px;
@@ -139,6 +137,41 @@
           }
         }
       }
+      .postBottomDetail {
+        min-height: 0px;
+        .message {
+          margin-top: 10px;
+          display: flex;
+
+          .left {
+            .profile {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+          }
+          .right {
+            margin-left: 10px;
+            height: 40px;
+            width: 90%;
+            display: flex;
+            align-items: center;
+            background-color: rgb(238, 237, 237);
+            justify-content: center;
+            border-radius: 20px;
+            input {
+              width: 95%;
+              font-size: 20px;
+              background-color: rgb(238, 237, 237);
+              border: none;
+              outline: none;
+            }
+          }
+        }
+      }
     }
   }
 }
+
+@import "./hismessage";

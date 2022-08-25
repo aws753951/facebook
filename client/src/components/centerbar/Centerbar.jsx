@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Post from "../sharepost/Post";
 import Sharepost from "../sharepost/Sharepost";
 
-export default function Centerbar({ user, userID }) {
+export default function Centerbar({ user, userID, cancel, setCancel }) {
   const [posts, setPosts] = useState([]);
   // userID is the guy you want to check, user is you.
 
@@ -27,7 +27,15 @@ export default function Centerbar({ user, userID }) {
     <div className="centerbarContainer">
       <div className="centerWrapper">
         {(!userID || userID === user._id) && <Sharepost />}
-        {posts && posts.map((post) => <Post key={post._id} post={post} />)}
+        {posts &&
+          posts.map((post) => (
+            <Post
+              key={post._id}
+              post={post}
+              cancel={cancel}
+              setCancel={setCancel}
+            />
+          ))}
         {/* 都沒有貼文且不是本人查看的話 */}
         {posts && posts.length === 0 && userID && userID !== user._id && (
           <div className="noPost">

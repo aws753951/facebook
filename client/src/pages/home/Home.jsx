@@ -11,9 +11,10 @@ export default function Home() {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUser] = useState([]);
   const [logout, setLogout] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
   useEffect(() => {
-    setSocket(io("ws://localhost:6970"));
+    setSocket(io("https://fakebookformarc.herokuapp.com/"));
   }, []);
 
   useEffect(() => {
@@ -28,12 +29,14 @@ export default function Home() {
       <Nav logout={logout} setLogout={setLogout} />
       <div
         className="homeContainer"
-        onClick={() => {
+        onClick={(e) => {
           setLogout(false);
+          setCancel(false);
+          e.stopPropagation();
         }}
       >
         <Leftbar />
-        <Centerbar user={user} />
+        <Centerbar user={user} cancel={cancel} setCancel={setCancel} />
         <Rightbar onlineUsers={onlineUsers} />
       </div>
     </>

@@ -2,8 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-// protect req.
-// const helmet = require("helmet");
 // show which req has been made, what was result and how long it took.
 const morgan = require("morgan");
 const userRoute = require("./routes/user");
@@ -23,81 +21,7 @@ mongoose.connect(process.env.MONGO_URL, () => {
 app.use(cors());
 // body-parser when making a post req, it will password it.
 app.use(express.json());
-// app.use(
-//   helmet({
-//     // https://stackoverflow.com/questions/69243166/err-blocked-by-response-notsameorigin-cors-policy-javascript
-//     crossOriginResourcePolicy: false,
-//   })
-// );
 app.use(morgan("common"));
-
-// 輸入server+/images/檔案即可透過server取得照片
-// app.use("/images", express.static(path.join(__dirname, "client/src/images")));
-
-// const storagePost = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "client/src/images/postPicture");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, req.body.name);
-//   },
-// });
-// const uploadPost = multer({ storage: storagePost });
-// app.post("/uploadpost", uploadPost.single("file"), (req, res) => {
-//   try {
-//     return res.status(200).json("File uploded successfully");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
-// const storageProfile = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "client/src/images/profilePicture");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, req.body.name);
-//   },
-// });
-// const uploadProfile = multer({ storage: storageProfile });
-// app.post("/uploadprofile", uploadProfile.single("file"), (req, res) => {
-//   try {
-//     return res.status(200).json("File uploded successfully");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
-// const storageCover = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "client/src/images/coverPicture");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, req.body.name);
-//   },
-// });
-// const uploadCover = multer({ storage: storageCover });
-// app.post("/uploadcover", uploadCover.single("file"), (req, res) => {
-//   try {
-//     return res.status(200).json("File uploded successfully");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// });
-
-// const upload = multer({
-//   limits: {
-//     // 限制容量500KB
-//     fileSize: 500000,
-//   },
-//   fileFilter(req, file, cb) {
-//     // 只接受三種圖片格式
-//     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-//       cb(new Error("Please upload an image"));
-//     }
-//     cb(null, true);
-//   },
-// });
 
 // 處理po文的圖片
 const uppp = multer();
@@ -131,6 +55,61 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build", "index.html"));
 });
 
-app.listen(process.env.PORT || 6969, () => {
+const server = app.listen(process.env.PORT || 6969, () => {
   console.log("Port 6969 is running.");
+});
+
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
+
+let users = [];
+
+// 把已經加過的userID就不重複加入了
+const addUser = (userID, socketID) => {
+  // array.some((item)=> 檢驗item的條件) 若有一個符合則回傳true，應該也可以用includes檢查 ---- 4
+  !users.some((user) => user.userID === userID) &&
+    users.push({ userID, socketID });
+};
+
+const removeUser = (socketID) => {
+  users = users.filter((user) => user.socketID !== socketID);
+};
+
+const getUser = (userID) => {
+  // apart from userID, also provide its socketID
+  return users.find((user) => user.userID === userID);
+};
+
+io.on("connection", (socket) => {
+  console.log("a user connected.");
+
+  // 接收來自client的資訊  => socket.on
+  // 頻道為"add user" 內容為userID，針對該內容進行操作使用CALLBACK ---- 2 (上線)
+  socket.on("add user", (userID) => {
+    // 針對在線上的，加入到users這個array ---- 3
+    // 每一次傳到socker的server，自帶.id的屬性，如果需要則用socket.id取出
+    addUser(userID, socket.id);
+    // 之後馬上傳遞users這個array到 "getUsers"這個頻道 ---- 5
+    io.emit("getUsers", users);
+  });
+
+  //   下線，客戶端不用特別寫甚麼，視窗關掉就下線了
+  socket.on("disconnect", () => {
+    console.log("a user disconnected.");
+    removeUser(socket.id);
+    io.emit("getUsers", users);
+  });
+
+  socket.on("sendMessage", ({ senderID, receiverID, text }) => {
+    // 伺服器收到客戶端A的訊息，在已上線的客戶端中找到符合的人
+    const foundUser = getUser(receiverID);
+    // 針對符合的人，找到他的socketID，寄送到頻道為getMessage，內容為寄送人的{senderID, text}
+    io.to(foundUser?.socketID).emit("getMessage", {
+      senderID,
+      text,
+    });
+  });
 });
